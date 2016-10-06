@@ -17,6 +17,7 @@
   "dependencies": {
     "babel-loader": "^6.2.5",
     "react": "^15.3.2",
+    "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.2"
   }
 }
