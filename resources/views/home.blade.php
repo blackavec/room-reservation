@@ -8,10 +8,10 @@
         <title>Reservation</title>
 
         <!-- Latest compiled and minified CSS -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
 
         <!-- Optional theme -->
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="/css/bootstrap-theme.min.css">
 
         <script src="/js/react.js"></script>
     </head>
