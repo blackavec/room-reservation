@@ -61,7 +61,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(/*! ../../../resources/assets/scss/main.scss */ 173);
+	__webpack_require__(/*! ../../../resources/assets/scss/main.scss */ 174);
 	
 	(0, _reactDom.render)(_react2.default.createElement(_app2.default, null), document.getElementById('container'));
 
@@ -21989,11 +21989,19 @@
 
 	'use strict';
 	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(/*! react */ 1);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _operation = __webpack_require__(/*! ./components/operation.jsx */ 173);
+	
+	var _operation2 = _interopRequireDefault(_operation);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -22015,21 +22023,188 @@
 	    _createClass(App, [{
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                'Welcome to the Reservation app'
-	            );
+	            return _react2.default.createElement(_operation2.default, null);
 	        }
 	    }]);
 	
 	    return App;
 	}(_react.Component);
 	
+	exports.default = App;
+	
+	
 	module.exports = App;
 
 /***/ },
 /* 173 */
+/*!******************************************************!*\
+  !*** ./resources/assets/js/components/operation.jsx ***!
+  \******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Operation = function (_Component) {
+	  _inherits(Operation, _Component);
+	
+	  function Operation() {
+	    _classCallCheck(this, Operation);
+	
+	    return _possibleConstructorReturn(this, (Operation.__proto__ || Object.getPrototypeOf(Operation)).apply(this, arguments));
+	  }
+	
+	  _createClass(Operation, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "form",
+	        { className: "form-inline" },
+	        _react2.default.createElement(
+	          "table",
+	          { className: "table table-bordered table-striped" },
+	          _react2.default.createElement(
+	            "tbody",
+	            null,
+	            _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "th",
+	                { scope: "row" },
+	                _react2.default.createElement(
+	                  "span",
+	                  null,
+	                  "Bulk Operations"
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "th",
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "form-group" },
+	                  _react2.default.createElement(
+	                    "span",
+	                    null,
+	                    "Select Room: "
+	                  ),
+	                  _react2.default.createElement(
+	                    "select",
+	                    { className: "form-control input-sm" },
+	                    _react2.default.createElement(
+	                      "option",
+	                      null,
+	                      "Single Room"
+	                    ),
+	                    _react2.default.createElement(
+	                      "option",
+	                      null,
+	                      "Double Room"
+	                    )
+	                  )
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "th",
+	                { scope: "row" },
+	                _react2.default.createElement(
+	                  "span",
+	                  null,
+	                  "Select Days:"
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "th",
+	                null,
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "form-group" },
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "change-row-span" },
+	                    "Change Price To: "
+	                  ),
+	                  _react2.default.createElement("input", { type: "text", className: "form-control input-sm" })
+	                ),
+	                _react2.default.createElement("br", null),
+	                _react2.default.createElement("br", null),
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "form-group" },
+	                  _react2.default.createElement(
+	                    "span",
+	                    { className: "change-row-span" },
+	                    "Change Availability To: "
+	                  ),
+	                  _react2.default.createElement("input", { type: "text", className: "form-control input-sm" })
+	                )
+	              )
+	            ),
+	            _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "th",
+	                { scope: "row" },
+	                _react2.default.createElement(
+	                  "button",
+	                  { type: "button", className: "btn btn-default btn-sm" },
+	                  "Cancel"
+	                ),
+	                ' ',
+	                _react2.default.createElement(
+	                  "button",
+	                  { type: "button", className: "btn btn-success btn-sm" },
+	                  "Update"
+	                )
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return Operation;
+	}(_react.Component);
+	
+	// module.exports = App;
+	
+	
+	exports.default = Operation;
+
+/***/ },
+/* 174 */
 /*!*****************************************!*\
   !*** ./resources/assets/scss/main.scss ***!
   \*****************************************/
@@ -22038,10 +22213,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../../~/css-loader!./../../../~/sass-loader!./main.scss */ 174);
+	var content = __webpack_require__(/*! !./../../../~/css-loader!./../../../~/sass-loader!./main.scss */ 175);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../../~/style-loader/addStyles.js */ 176)(content, {});
+	var update = __webpack_require__(/*! ./../../../~/style-loader/addStyles.js */ 177)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -22058,24 +22233,24 @@
 	}
 
 /***/ },
-/* 174 */
+/* 175 */
 /*!************************************************************************!*\
   !*** ./~/css-loader!./~/sass-loader!./resources/assets/scss/main.scss ***!
   \************************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 175)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 176)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-size: 10px; }\n", ""]);
+	exports.push([module.id, "body {\n  font-size: 12px;\n  padding: 10px; }\n\n.change-row-span {\n  width: 135px;\n  display: inline-block; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 175 */
+/* 176 */
 /*!**************************************!*\
   !*** ./~/css-loader/lib/css-base.js ***!
   \**************************************/
@@ -22133,7 +22308,7 @@
 	};
 
 /***/ },
-/* 176 */
+/* 177 */
 /*!*************************************!*\
   !*** ./~/style-loader/addStyles.js ***!
   \*************************************/

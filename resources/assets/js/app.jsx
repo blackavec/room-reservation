@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 
-class App extends Component {
+import Operation from './components/operation.jsx';
+
+export default class App extends Component {
     render() {
         return (
-            <div>Welcome to the Reservation app</div>
+            <Operation />
         );
     }
 }
