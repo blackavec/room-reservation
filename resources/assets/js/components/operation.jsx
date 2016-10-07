@@ -137,5 +137,3 @@ export default class Operation extends Component {
         );
     }
 }
-
-// module.exports = App;

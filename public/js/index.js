@@ -61,7 +61,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	__webpack_require__(/*! ../../../resources/assets/scss/main.scss */ 174);
+	__webpack_require__(/*! ../../../resources/assets/scss/main.scss */ 175);
 	
 	(0, _reactDom.render)(_react2.default.createElement(_app2.default, null), document.getElementById('container'));
 
@@ -21990,7 +21990,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -22003,6 +22003,10 @@
 	
 	var _operation2 = _interopRequireDefault(_operation);
 	
+	var _priceAndAvailibility = __webpack_require__(/*! ./components/price-and-availibility.jsx */ 174);
+	
+	var _priceAndAvailibility2 = _interopRequireDefault(_priceAndAvailibility);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22012,22 +22016,27 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var App = function (_Component) {
-	    _inherits(App, _Component);
+	  _inherits(App, _Component);
 	
-	    function App() {
-	        _classCallCheck(this, App);
+	  function App() {
+	    _classCallCheck(this, App);
 	
-	        return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	  }
+	
+	  _createClass(App, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_operation2.default, null),
+	        _react2.default.createElement(_priceAndAvailibility2.default, null)
+	      );
 	    }
+	  }]);
 	
-	    _createClass(App, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(_operation2.default, null);
-	        }
-	    }]);
-	
-	    return App;
+	  return App;
 	}(_react.Component);
 	
 	exports.default = App;
@@ -22391,13 +22400,82 @@
 	  return Operation;
 	}(_react.Component);
 	
-	// module.exports = App;
-	
-	
 	exports.default = Operation;
 
 /***/ },
 /* 174 */
+/*!*******************************************************************!*\
+  !*** ./resources/assets/js/components/price-and-availibility.jsx ***!
+  \*******************************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var PriceAndAvailibility = function (_Component) {
+	  _inherits(PriceAndAvailibility, _Component);
+	
+	  function PriceAndAvailibility() {
+	    _classCallCheck(this, PriceAndAvailibility);
+	
+	    return _possibleConstructorReturn(this, (PriceAndAvailibility.__proto__ || Object.getPrototypeOf(PriceAndAvailibility)).apply(this, arguments));
+	  }
+	
+	  _createClass(PriceAndAvailibility, [{
+	    key: "render",
+	    value: function render() {
+	      return _react2.default.createElement(
+	        "form",
+	        { className: "form-inline" },
+	        _react2.default.createElement(
+	          "table",
+	          { className: "table table-bordered table-striped" },
+	          _react2.default.createElement(
+	            "tbody",
+	            null,
+	            _react2.default.createElement(
+	              "tr",
+	              null,
+	              _react2.default.createElement(
+	                "th",
+	                { scope: "row" },
+	                _react2.default.createElement(
+	                  "span",
+	                  null,
+	                  "Price and Availability:"
+	                )
+	              )
+	            )
+	          )
+	        )
+	      );
+	    }
+	  }]);
+	
+	  return PriceAndAvailibility;
+	}(_react.Component);
+	
+	exports.default = PriceAndAvailibility;
+
+/***/ },
+/* 175 */
 /*!*****************************************!*\
   !*** ./resources/assets/scss/main.scss ***!
   \*****************************************/
@@ -22406,10 +22484,10 @@
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(/*! !./../../../~/css-loader!./../../../~/sass-loader!./main.scss */ 175);
+	var content = __webpack_require__(/*! !./../../../~/css-loader!./../../../~/sass-loader!./main.scss */ 176);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(/*! ./../../../~/style-loader/addStyles.js */ 177)(content, {});
+	var update = __webpack_require__(/*! ./../../../~/style-loader/addStyles.js */ 178)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -22426,24 +22504,24 @@
 	}
 
 /***/ },
-/* 175 */
+/* 176 */
 /*!************************************************************************!*\
   !*** ./~/css-loader!./~/sass-loader!./resources/assets/scss/main.scss ***!
   \************************************************************************/
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 176)();
+	exports = module.exports = __webpack_require__(/*! ./../../../~/css-loader/lib/css-base.js */ 177)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-size: 12px;\n  padding: 10px; }\n\n.change-row-span {\n  width: 135px;\n  display: inline-block; }\n\n.date-range-row-span {\n  width: 45px;\n  display: inline-block;\n  text-align: right;\n  padding-right: 5px; }\n\n.checkbox {\n  width: 200px; }\n  .checkbox span {\n    padding-left: 5px; }\n\n.newline {\n  margin-top: 5px; }\n", ""]);
+	exports.push([module.id, "body {\n  font-size: 12px;\n  padding: 10px; }\n\n.change-row-span {\n  width: 135px;\n  display: inline-block; }\n\n.date-range-row-span {\n  width: 45px;\n  display: inline-block;\n  text-align: right;\n  padding-right: 5px; }\n\n.checkbox {\n  width: 200px; }\n  .checkbox span {\n    padding-left: 5px; }\n\n.newline {\n  margin-top: 5px; }\n\n.table-striped > tbody > tr:nth-of-type(odd) {\n  background-color: #f5f6f1; }\n\n.table-striped > tbody > tr:nth-of-type(even) {\n  background-color: #f9f9f9; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 176 */
+/* 177 */
 /*!**************************************!*\
   !*** ./~/css-loader/lib/css-base.js ***!
   \**************************************/
@@ -22501,7 +22579,7 @@
 	};
 
 /***/ },
-/* 177 */
+/* 178 */
 /*!*************************************!*\
   !*** ./~/style-loader/addStyles.js ***!
   \*************************************/

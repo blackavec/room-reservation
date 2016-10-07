@@ -22,3 +22,11 @@ body {
 .newline {
   margin-top: 5px;
 }
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #f5f6f1;
+}
+
+.table-striped>tbody>tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+}
