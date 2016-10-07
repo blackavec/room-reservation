@@ -22134,9 +22134,203 @@
 	                "th",
 	                { scope: "row" },
 	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "Select Days:"
+	                  "div",
+	                  { className: "pull-left" },
+	                  _react2.default.createElement(
+	                    "span",
+	                    null,
+	                    "Select Days:"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "col-md-2" },
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "form-group" },
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "date-range-row-span" },
+	                      "From: "
+	                    ),
+	                    _react2.default.createElement("input", { type: "text", className: "form-control input-sm" })
+	                  ),
+	                  _react2.default.createElement("div", { className: "newline" }),
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "form-group" },
+	                    _react2.default.createElement(
+	                      "span",
+	                      { className: "date-range-row-span" },
+	                      "To: "
+	                    ),
+	                    _react2.default.createElement("input", { type: "text", className: "form-control input-sm" })
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "pull-left" },
+	                  _react2.default.createElement(
+	                    "span",
+	                    null,
+	                    "Refine Days:"
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "col-md-1" },
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "checkbox pull-left" },
+	                    _react2.default.createElement(
+	                      "label",
+	                      null,
+	                      _react2.default.createElement("input", { type: "checkbox" }),
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "All Days"
+	                      )
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "checkbox pull-left" },
+	                    _react2.default.createElement(
+	                      "label",
+	                      null,
+	                      _react2.default.createElement("input", { type: "checkbox" }),
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "All Weekdays"
+	                      )
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "checkbox pull-left" },
+	                    _react2.default.createElement(
+	                      "label",
+	                      null,
+	                      _react2.default.createElement("input", { type: "checkbox" }),
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "All Weekends"
+	                      )
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "col-md-1" },
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "checkbox pull-left" },
+	                    _react2.default.createElement(
+	                      "label",
+	                      null,
+	                      _react2.default.createElement("input", { type: "checkbox" }),
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "Mondays"
+	                      )
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "checkbox pull-left" },
+	                    _react2.default.createElement(
+	                      "label",
+	                      null,
+	                      _react2.default.createElement("input", { type: "checkbox" }),
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "Tuesdays"
+	                      )
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "checkbox pull-left" },
+	                    _react2.default.createElement(
+	                      "label",
+	                      null,
+	                      _react2.default.createElement("input", { type: "checkbox" }),
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "Wednesdays"
+	                      )
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "col-md-1" },
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "checkbox pull-left" },
+	                    _react2.default.createElement(
+	                      "label",
+	                      null,
+	                      _react2.default.createElement("input", { type: "checkbox" }),
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "Thursdays"
+	                      )
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "checkbox pull-left" },
+	                    _react2.default.createElement(
+	                      "label",
+	                      null,
+	                      _react2.default.createElement("input", { type: "checkbox" }),
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "Fridays"
+	                      )
+	                    )
+	                  ),
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "checkbox pull-left" },
+	                    _react2.default.createElement(
+	                      "label",
+	                      null,
+	                      _react2.default.createElement("input", { type: "checkbox" }),
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "Saturdays"
+	                      )
+	                    )
+	                  )
+	                ),
+	                _react2.default.createElement(
+	                  "div",
+	                  { className: "col-md-1" },
+	                  _react2.default.createElement(
+	                    "div",
+	                    { className: "checkbox pull-left" },
+	                    _react2.default.createElement(
+	                      "label",
+	                      null,
+	                      _react2.default.createElement("input", { type: "checkbox" }),
+	                      _react2.default.createElement(
+	                        "span",
+	                        null,
+	                        "Sundays"
+	                      )
+	                    )
+	                  )
 	                )
 	              )
 	            ),
@@ -22156,8 +22350,7 @@
 	                  ),
 	                  _react2.default.createElement("input", { type: "text", className: "form-control input-sm" })
 	                ),
-	                _react2.default.createElement("br", null),
-	                _react2.default.createElement("br", null),
+	                _react2.default.createElement("div", { className: "newline" }),
 	                _react2.default.createElement(
 	                  "div",
 	                  { className: "form-group" },
@@ -22244,7 +22437,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-size: 12px;\n  padding: 10px; }\n\n.change-row-span {\n  width: 135px;\n  display: inline-block; }\n", ""]);
+	exports.push([module.id, "body {\n  font-size: 12px;\n  padding: 10px; }\n\n.change-row-span {\n  width: 135px;\n  display: inline-block; }\n\n.date-range-row-span {\n  width: 45px;\n  display: inline-block;\n  text-align: right;\n  padding-right: 5px; }\n\n.checkbox {\n  width: 200px; }\n  .checkbox span {\n    padding-left: 5px; }\n\n.newline {\n  margin-top: 5px; }\n", ""]);
 	
 	// exports
 

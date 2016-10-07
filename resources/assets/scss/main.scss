@@ -7,3 +7,18 @@ body {
   width: 135px;
   display: inline-block;
 }
+.date-range-row-span {
+  width: 45px;
+  display: inline-block;
+  text-align: right;
+  padding-right: 5px;
+}
+.checkbox {
+  width: 200px;
+  span {
+    padding-left: 5px;
+  }
+}
+.newline {
+  margin-top: 5px;
+}

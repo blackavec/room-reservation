@@ -24,7 +24,91 @@ export default class Operation extends Component {
                 </tr>
                 <tr>
                   <th scope="row">
-                    <span>Select Days:</span>
+                    <div className="pull-left">
+                      <span>Select Days:</span>
+                    </div>
+                    <div className="col-md-2">
+                      <div className="form-group">
+                        <span className="date-range-row-span">From: </span>
+                        <input type="text" className="form-control input-sm" />
+                      </div>
+                      <div className="newline"></div>
+                      <div className="form-group">
+                        <span className="date-range-row-span">To: </span>
+                        <input type="text" className="form-control input-sm" />
+                      </div>
+                    </div>
+                    <div className="pull-left">
+                      <span>Refine Days:</span>
+                    </div>
+                    <div className="col-md-1">
+                      <div className="checkbox pull-left">
+                        <label>
+                          <input type="checkbox" />
+                          <span>All Days</span>
+                        </label>
+                      </div>
+                      <div className="checkbox pull-left">
+                        <label>
+                          <input type="checkbox" />
+                          <span>All Weekdays</span>
+                        </label>
+                      </div>
+                      <div className="checkbox pull-left">
+                        <label>
+                          <input type="checkbox" />
+                          <span>All Weekends</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col-md-1">
+                      <div className="checkbox pull-left">
+                        <label>
+                          <input type="checkbox" />
+                          <span>Mondays</span>
+                        </label>
+                      </div>
+                      <div className="checkbox pull-left">
+                        <label>
+                          <input type="checkbox" />
+                          <span>Tuesdays</span>
+                        </label>
+                      </div>
+                      <div className="checkbox pull-left">
+                        <label>
+                          <input type="checkbox" />
+                          <span>Wednesdays</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col-md-1">
+                      <div className="checkbox pull-left">
+                        <label>
+                          <input type="checkbox" />
+                          <span>Thursdays</span>
+                        </label>
+                      </div>
+                      <div className="checkbox pull-left">
+                        <label>
+                          <input type="checkbox" />
+                          <span>Fridays</span>
+                        </label>
+                      </div>
+                      <div className="checkbox pull-left">
+                        <label>
+                          <input type="checkbox" />
+                          <span>Saturdays</span>
+                        </label>
+                      </div>
+                    </div>
+                    <div className="col-md-1">
+                      <div className="checkbox pull-left">
+                        <label>
+                          <input type="checkbox" />
+                          <span>Sundays</span>
+                        </label>
+                      </div>
+                    </div>
                   </th>
                 </tr>
                 <tr>
@@ -33,8 +117,7 @@ export default class Operation extends Component {
                       <span className="change-row-span">Change Price To: </span>
                       <input type="text" className="form-control input-sm" />
                     </div>
-                    <br />
-                    <br />
+                    <div className="newline"></div>
                     <div className="form-group">
                       <span className="change-row-span">Change Availability To: </span>
                       <input type="text" className="form-control input-sm" />
