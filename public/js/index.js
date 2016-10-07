@@ -22040,9 +22040,6 @@
 	}(_react.Component);
 	
 	exports.default = App;
-	
-	
-	module.exports = App;
 
 /***/ },
 /* 173 */
