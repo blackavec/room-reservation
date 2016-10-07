@@ -1,5 +1,3 @@
-let CopyWebpackPlugin = require('copy-webpack-plugin');
-
 module.exports = {
   entry: './resources/assets/js/index.jsx',
   output: {
@@ -12,19 +10,13 @@ module.exports = {
         loader: 'babel-loader',
         exclude: ['node_modules', 'bower_components'],
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react'],
         }
       },
       {
         test: /\.scss$/,
-        loaders: [ 'style', 'css', 'sass' ]
+        loaders: [ 'style', 'css', 'sass' ],
       }
     ]
   },
-
-  // plugins: [
-  //   new CopyWebpackPlugin([
-  //     { from: 'bower_components/**/*', to: './public/bower' },
-  //   ])
-  // ]
 }
