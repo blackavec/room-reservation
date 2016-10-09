@@ -22081,6 +22081,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	__webpack_require__(/*! react-datepicker/dist/react-datepicker.css */ 390);
+	var nowMoment = (0, _moment2.default)();
 	
 	var Operation = function (_Component) {
 	  _inherits(Operation, _Component);
@@ -22091,8 +22092,9 @@
 	    var _this = _possibleConstructorReturn(this, (Operation.__proto__ || Object.getPrototypeOf(Operation)).call(this, props));
 	
 	    _this.state = {
-	      dateFrom: (0, _moment2.default)(),
-	      dateTo: (0, _moment2.default)()
+	      dateFrom: nowMoment,
+	      dateTo: nowMoment,
+	      isBulkOperationOpen: false
 	    };
 	    return _this;
 	  }
@@ -22109,6 +22111,24 @@
 	    value: function handleChangeDateTo(date) {
 	      this.setState({
 	        dateTo: date
+	      });
+	    }
+	  }, {
+	    key: 'bulkOperationToggle',
+	    value: function bulkOperationToggle() {
+	      if (this.state.isBulkOperationOpen) {
+	        return;
+	      }
+	
+	      this.setState({
+	        isBulkOperationOpen: true
+	      });
+	    }
+	  }, {
+	    key: 'bulkOperationCancel',
+	    value: function bulkOperationCancel() {
+	      this.setState({
+	        isBulkOperationOpen: false
 	      });
 	    }
 	  }, {
@@ -22130,15 +22150,15 @@
 	                'th',
 	                { scope: 'row' },
 	                _react2.default.createElement(
-	                  'span',
-	                  null,
+	                  'a',
+	                  { href: 'javascript:void(0);', onClick: this.bulkOperationToggle.bind(this) },
 	                  'Bulk Operations'
 	                )
 	              )
 	            ),
 	            _react2.default.createElement(
 	              'tr',
-	              null,
+	              { className: !this.state.isBulkOperationOpen ? 'hidden' : '' },
 	              _react2.default.createElement(
 	                'th',
 	                null,
@@ -22169,7 +22189,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'tr',
-	              null,
+	              { className: !this.state.isBulkOperationOpen ? 'hidden' : '' },
 	              _react2.default.createElement(
 	                'th',
 	                { scope: 'row' },
@@ -22195,6 +22215,7 @@
 	                      'From: '
 	                    ),
 	                    _react2.default.createElement(_reactDatepicker2.default, {
+	                      maxDate: this.state.dateTo !== nowMoment ? this.state.dateTo : null,
 	                      customInput: _react2.default.createElement(_datepicker2.default, null),
 	                      selected: this.state.dateFrom,
 	                      onChange: this.handleChangeDateFrom.bind(this) })
@@ -22209,6 +22230,7 @@
 	                      'To: '
 	                    ),
 	                    _react2.default.createElement(_reactDatepicker2.default, {
+	                      minDate: this.state.dateFrom !== nowMoment ? this.state.dateFrom : null,
 	                      customInput: _react2.default.createElement(_datepicker2.default, null),
 	                      selected: this.state.dateTo,
 	                      onChange: this.handleChangeDateTo.bind(this) })
@@ -22385,7 +22407,7 @@
 	            ),
 	            _react2.default.createElement(
 	              'tr',
-	              null,
+	              { className: !this.state.isBulkOperationOpen ? 'hidden' : '' },
 	              _react2.default.createElement(
 	                'th',
 	                null,
@@ -22397,7 +22419,7 @@
 	                    { className: 'change-row-span' },
 	                    'Change Price To: '
 	                  ),
-	                  _react2.default.createElement('input', { type: 'text', className: 'form-control input-sm' })
+	                  _react2.default.createElement('input', { type: 'number', className: 'form-control input-sm' })
 	                ),
 	                _react2.default.createElement('div', { className: 'newline' }),
 	                _react2.default.createElement(
@@ -22408,19 +22430,22 @@
 	                    { className: 'change-row-span' },
 	                    'Change Availability To: '
 	                  ),
-	                  _react2.default.createElement('input', { type: 'text', className: 'form-control input-sm' })
+	                  _react2.default.createElement('input', { type: 'number', className: 'form-control input-sm' })
 	                )
 	              )
 	            ),
 	            _react2.default.createElement(
 	              'tr',
-	              null,
+	              { className: !this.state.isBulkOperationOpen ? 'hidden' : '' },
 	              _react2.default.createElement(
 	                'th',
 	                { scope: 'row' },
 	                _react2.default.createElement(
 	                  'button',
-	                  { type: 'button', className: 'btn btn-default btn-sm' },
+	                  {
+	                    onClick: this.bulkOperationCancel.bind(this),
+	                    type: 'button',
+	                    className: 'btn btn-default btn-sm' },
 	                  'Cancel'
 	                ),
 	                ' ',
