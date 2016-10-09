@@ -21,12 +21,52 @@ body {
 .newline {
   margin-top: 5px;
 }
-.table-striped>tbody>tr:nth-of-type(odd) {
-  background-color: #f5f6f1;
+.table-operation {
+  &>tbody>tr:nth-of-type(odd) {
+    background-color: #f5f6f1;
+  }
+  &>tbody>tr:nth-of-type(even) {
+    background-color: #f9f9f9;
+  }
 }
-.table-striped>tbody>tr:nth-of-type(even) {
-  background-color: #f9f9f9;
+.form-price-and-availibility {
+  width: 100%;
+  overflow-x: scroll;
+  overflow-y: visible;
+  .table-price-and-availibility {
+    .single-room {
+      background-color: #c5c891 !important;
+    }
+    .double-room {
+      background-color: #c9e6ef !important;
+    }
+    tr {
+      td:nth-child(1) {
+        background-color: #f5f6f2;
+        z-index: 100;
+      }
+      td:nth-child(2) {
+        padding-left: 210px;
+      }
+    }
+    &>tbody>tr:nth-of-type(odd) {
+      background-color: #f5f6f1;
+    }
+    &>tbody>tr:nth-of-type(even) {
+      background-color: #f9f9f9;
+    }
+    .fixed-column {
+      position: absolute;
+      left: 10px;
+      width: 200px;
+      top:auto;
+    }
+    .elastic-column {
+      position: relative;
+    }
+  }
 }
+
 @media screen and (max-width: 467px) {
   .checkbox {
     width: 100%;

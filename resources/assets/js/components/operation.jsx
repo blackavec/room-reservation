@@ -29,7 +29,7 @@ export default class Operation extends Component {
     });
   }
 
-  bulkOperationToggle() {
+  toggle() {
     if (this.state.isBulkOperationOpen) {
       return;
     }
@@ -39,20 +39,24 @@ export default class Operation extends Component {
     });
   }
 
-  bulkOperationCancel() {
+  cancel() {
     this.setState({
       isBulkOperationOpen: false,
     });
   }
 
+  update() {
+    console.log('update');
+  }
+
   render() {
     return (
       <form className="form-inline">
-        <table className="table table-bordered table-striped">
+        <table className="table table-bordered table-striped table-operation">
           <tbody>
             <tr>
               <th scope="row">
-                <a href="javascript:void(0);" onClick={this.bulkOperationToggle.bind(this)}>Bulk Operations</a>
+                <a href="javascript:void(0);" onClick={this.toggle.bind(this)}>Bulk Operations</a>
               </th>
             </tr>
             <tr className={!this.state.isBulkOperationOpen ? 'hidden' : ''}>
@@ -190,11 +194,14 @@ export default class Operation extends Component {
             <tr className={!this.state.isBulkOperationOpen ? 'hidden' : ''}>
               <th scope="row">
                 <button
-                  onClick={this.bulkOperationCancel.bind(this)}
+                  onClick={this.cancel.bind(this)}
                   type="button"
                   className="btn btn-default btn-sm">Cancel</button>
                 {' '}
-                <button type="button" className="btn btn-success btn-sm">Update</button>
+                <button
+                  onClick={this.update.bind(this)}
+                  type="button"
+                  className="btn btn-success btn-sm">Update</button>
               </th>
             </tr>
           </tbody>
