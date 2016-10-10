@@ -11,9 +11,24 @@ export default class Operation extends Component {
     super(props);
 
     this.state = {
+      changePriceTo: 0,
+      changeAvailibilityTo: 0,
+      roomType: 'single',
       dateFrom: nowMoment,
       dateTo: nowMoment,
       isBulkOperationOpen: false,
+      allDays: false,
+      allWeekdays: false,
+      allWeekends: false,
+      daysOfWeek: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
+      }
     };
   }
 
@@ -45,6 +60,75 @@ export default class Operation extends Component {
     });
   }
 
+  checkAllDays() {
+    this.setState({
+      allDays: true,
+      allWeekdays: false,
+      allWeekends: false,
+      daysOfWeek: {
+        monday: true,
+        tuesday: true,
+        wednesday: true,
+        thursday: true,
+        friday: true,
+        saturday: true,
+        sunday: true,
+      }
+    });
+  }
+
+  checkAllWeekdays() {
+    this.setState({
+      allDays: false,
+      allWeekdays: true,
+      allWeekends: false,
+      daysOfWeek: {
+        monday: true,
+        tuesday: true,
+        wednesday: true,
+        thursday: true,
+        friday: true,
+        saturday: false,
+        sunday: false,
+      }
+    });
+  }
+
+  checkAllWeekends() {
+    this.setState({
+      allDays: false,
+      allWeekdays: false,
+      allWeekends: true,
+      daysOfWeek: {
+        monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: true,
+        sunday: true,
+      }
+    });
+  }
+
+  dayToggle(day) {
+    const days = this.state.daysOfWeek;
+    this.setState({
+      allDays: false,
+      allWeekdays: false,
+      allWeekends: false,
+      daysOfWeek: {
+        monday: day === 'monday' ? !days.monday : days.monday,
+        tuesday: day === 'tuesday' ? !days.tuesday : days.tuesday,
+        wednesday: day === 'wednesday' ? !days.wednesday : days.wednesday,
+        thursday: day === 'thursday' ? !days.thursday : days.thursday,
+        friday: day === 'friday' ? !days.friday : days.friday,
+        saturday: day === 'saturday' ? !days.saturday : days.saturday,
+        sunday: day === 'sunday' ? !days.sunday : days.sunday,
+      }
+    });
+  }
+
   update() {
     console.log('update');
   }
@@ -63,9 +147,16 @@ export default class Operation extends Component {
               <th>
                 <div className="form-group">
                   <span>Select Room: </span>
-                  <select className="form-control input-sm">
-                    <option>Single Room</option>
-                    <option>Double Room</option>
+                  <select
+                    onChange={(e) => {
+                      this.setState({
+                        roomType: e.target.value,
+                      });
+                    }}
+                    selected={this.state.roomType}
+                    className="form-control input-sm">
+                    <option value="single">Single Room</option>
+                    <option value="double">Double Room</option>
                   </select>
                 </div>
               </th>
@@ -111,19 +202,28 @@ export default class Operation extends Component {
                 <div className="col-md-1 col-xs-6">
                   <div className="checkbox pull-left">
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        onChange={this.checkAllDays.bind(this)}
+                        checked={this.state.allDays}
+                        type="checkbox" />
                       <span>All Days</span>
                     </label>
                   </div>
                   <div className="checkbox pull-left">
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        onChange={this.checkAllWeekdays.bind(this)}
+                        checked={this.state.allWeekdays}
+                        type="checkbox" />
                       <span>All Weekdays</span>
                     </label>
                   </div>
                   <div className="checkbox pull-left">
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        onChange={this.checkAllWeekends.bind(this)}
+                        checked={this.state.allWeekends}
+                        type="checkbox" />
                       <span>All Weekends</span>
                     </label>
                   </div>
@@ -131,19 +231,34 @@ export default class Operation extends Component {
                 <div className="col-md-1 col-xs-6">
                   <div className="checkbox pull-left">
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        onChange={() => {
+                          this.dayToggle('monday');
+                        }}
+                        checked={this.state.daysOfWeek.monday}
+                        type="checkbox" />
                       <span>Mondays</span>
                     </label>
                   </div>
                   <div className="checkbox pull-left">
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        onChange={() => {
+                          this.dayToggle('tuesday');
+                        }}
+                        checked={this.state.daysOfWeek.tuesday}
+                        type="checkbox" />
                       <span>Tuesdays</span>
                     </label>
                   </div>
                   <div className="checkbox pull-left">
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        onChange={() => {
+                          this.dayToggle('wednesday');
+                        }}
+                        checked={this.state.daysOfWeek.wednesday}
+                        type="checkbox" />
                       <span>Wednesdays</span>
                     </label>
                   </div>
@@ -151,19 +266,34 @@ export default class Operation extends Component {
                 <div className="col-md-1 col-xs-6">
                   <div className="checkbox pull-left">
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        onChange={() => {
+                          this.dayToggle('thursday');
+                        }}
+                        checked={this.state.daysOfWeek.thursday}
+                        type="checkbox" />
                       <span>Thursdays</span>
                     </label>
                   </div>
                   <div className="checkbox pull-left">
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        onChange={() => {
+                          this.dayToggle('friday');
+                        }}
+                        checked={this.state.daysOfWeek.friday}
+                        type="checkbox" />
                       <span>Fridays</span>
                     </label>
                   </div>
                   <div className="checkbox pull-left">
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        onChange={() => {
+                          this.dayToggle('saturday');
+                        }}
+                        checked={this.state.daysOfWeek.saturday}
+                        type="checkbox" />
                       <span>Saturdays</span>
                     </label>
                   </div>
@@ -171,7 +301,12 @@ export default class Operation extends Component {
                 <div className="col-md-1 col-xs-6">
                   <div className="checkbox pull-left">
                     <label>
-                      <input type="checkbox" />
+                      <input
+                        onChange={() => {
+                          this.dayToggle('sunday');
+                        }}
+                        checked={this.state.daysOfWeek.sunday}
+                        type="checkbox" />
                       <span>Sundays</span>
                     </label>
                   </div>
@@ -182,12 +317,28 @@ export default class Operation extends Component {
               <th>
                 <div className="form-group">
                   <span className="change-row-span">Change Price To: </span>
-                  <input type="number" className="form-control input-sm" />
+                  <input
+                    onChange={(e) => {
+                      this.setState({
+                        changePriceTo: e.target.value,
+                      });
+                    }}
+                    value={this.state.changePriceTo}
+                    type="number"
+                    className="form-control input-sm" />
                 </div>
                 <div className="newline"></div>
                 <div className="form-group">
                   <span className="change-row-span">Change Availability To: </span>
-                  <input type="number" className="form-control input-sm" />
+                  <input
+                    onChange={(e) => {
+                      this.setState({
+                        changeAvailibilityTo: e.target.value,
+                      });
+                    }}
+                    value={this.state.changeAvailibilityTo}
+                    type="number"
+                    className="form-control input-sm" />
                 </div>
               </th>
             </tr>
