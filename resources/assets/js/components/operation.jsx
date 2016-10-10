@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import DatePickerInput from './datepicker.jsx';
 import moment from 'moment';
+import cookie from 'react-cookie';
 
 require('react-datepicker/dist/react-datepicker.css');
 const nowMoment = moment();
@@ -10,36 +11,64 @@ export default class Operation extends Component {
   constructor(props) {
     super(props);
 
+    const operationCookies = cookie.load('operation');
+
+    console.log(operationCookies);
+
     this.state = {
-      changePriceTo: 0,
-      changeAvailibilityTo: 0,
-      roomType: 'single',
-      dateFrom: nowMoment,
-      dateTo: nowMoment,
-      isBulkOperationOpen: false,
-      allDays: false,
-      allWeekdays: false,
-      allWeekends: false,
+      changePriceTo: operationCookies ? operationCookies.changePriceTo : 0,
+      changeAvailibilityTo: operationCookies
+        ? operationCookies.changeAvailibilityTo
+        : 0,
+      roomType: operationCookies ? operationCookies.roomType : 'single',
+      dateFrom: operationCookies ? moment(operationCookies.dateFrom) : nowMoment,
+      dateTo: operationCookies ? moment(operationCookies.dateTo) : nowMoment,
+      isBulkOperationOpen: operationCookies
+        ? operationCookies.isBulkOperationOpen
+        : false,
+      allDays: operationCookies ? operationCookies.allDays : false,
+      allWeekdays: operationCookies ? operationCookies.allWeekdays : false,
+      allWeekends: operationCookies ? operationCookies.allWeekends : false,
       daysOfWeek: {
-        monday: false,
-        tuesday: false,
-        wednesday: false,
-        thursday: false,
-        friday: false,
-        saturday: false,
-        sunday: false,
+        monday: operationCookies
+          ? operationCookies.daysOfWeek.monday
+          : false,
+        tuesday: operationCookies
+          ? operationCookies.daysOfWeek.tuesday
+          : false,
+        wednesday: operationCookies
+          ? operationCookies.daysOfWeek.wednesday
+          : false,
+        thursday: operationCookies
+          ? operationCookies.daysOfWeek.thursday
+          : false,
+        friday: operationCookies
+          ? operationCookies.daysOfWeek.friday
+          : false,
+        saturday: operationCookies
+          ? operationCookies.daysOfWeek.saturday
+          : false,
+        sunday: operationCookies
+          ? operationCookies.daysOfWeek.sunday
+          : false,
       }
     };
   }
 
+  doSetState(states) {
+    this.setState(states);
+
+    cookie.save('operation', this.state);
+  }
+
   handleChangeDateFrom(date) {
-    this.setState({
+    this.doSetState({
       dateFrom: date,
     });
   }
 
   handleChangeDateTo(date) {
-    this.setState({
+    this.doSetState({
       dateTo: date,
     });
   }
@@ -49,19 +78,19 @@ export default class Operation extends Component {
       return;
     }
 
-    this.setState({
+    this.doSetState({
       isBulkOperationOpen: true,
     });
   }
 
   cancel() {
-    this.setState({
+    this.doSetState({
       isBulkOperationOpen: false,
     });
   }
 
   checkAllDays() {
-    this.setState({
+    this.doSetState({
       allDays: true,
       allWeekdays: false,
       allWeekends: false,
@@ -78,7 +107,7 @@ export default class Operation extends Component {
   }
 
   checkAllWeekdays() {
-    this.setState({
+    this.doSetState({
       allDays: false,
       allWeekdays: true,
       allWeekends: false,
@@ -95,7 +124,7 @@ export default class Operation extends Component {
   }
 
   checkAllWeekends() {
-    this.setState({
+    this.doSetState({
       allDays: false,
       allWeekdays: false,
       allWeekends: true,
@@ -113,7 +142,7 @@ export default class Operation extends Component {
 
   dayToggle(day) {
     const days = this.state.daysOfWeek;
-    this.setState({
+    this.doSetState({
       allDays: false,
       allWeekdays: false,
       allWeekends: false,
@@ -149,7 +178,7 @@ export default class Operation extends Component {
                   <span>Select Room: </span>
                   <select
                     onChange={(e) => {
-                      this.setState({
+                      this.doSetState({
                         roomType: e.target.value,
                       });
                     }}
@@ -319,7 +348,7 @@ export default class Operation extends Component {
                   <span className="change-row-span">Change Price To: </span>
                   <input
                     onChange={(e) => {
-                      this.setState({
+                      this.doSetState({
                         changePriceTo: e.target.value,
                       });
                     }}
@@ -332,7 +361,7 @@ export default class Operation extends Component {
                   <span className="change-row-span">Change Availability To: </span>
                   <input
                     onChange={(e) => {
-                      this.setState({
+                      this.doSetState({
                         changeAvailibilityTo: e.target.value,
                       });
                     }}
