@@ -9,6 +9,12 @@ a:hover, a:focus {
 body {
   font-size: 12px;
   padding: 10px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
 }
 .change-row-span {
   width: 135px;
@@ -38,8 +44,83 @@ body {
   }
 }
 .form-price-and-availibility {
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-size: 12px;
   border: 1px solid #ddd;
   background-color: #f5f6f2;
+  font-weight: normal;
+  color: black;
+
+  .row-price-availibility,
+  .row-single-room,
+  .row-double-room,
+  .row-room-available,
+  .row-price {
+    border-top: 1px solid #ddd;
+    width: 100%;
+    padding: 5px 8px;
+  }
+  .row-price-availibility {
+    border-top: none;
+    padding: 30px 8px;
+  }
+  .row-single-room {
+    background-color: #c5c891 !important;
+  }
+  .row-double-room {
+    background-color: #c9e6ef !important;
+  }
+  .left-panel {
+    display: inline-block;
+    float: left;
+    width: 20%;
+  }
+  .right-panel {
+    display: inline-block;
+    float: left;
+    border-left: 1px solid #ddd;
+    width: 80%;
+
+    .top-date-picker {
+      width: 100%;
+      padding: 2px 0;
+      text-align: center;
+
+      .date-picker-month-navigator-dropdown {
+        width: 70px;
+        display: inline-block;
+        position: relative;
+        background: transparent;
+        select {
+          background: transparent;
+          width: 100%;
+          -webkit-appearance: none;
+          -moz-appearance: none;
+          appearance: none;
+          border: none;
+          padding-right: 0;
+          padding: 2px 0px 3px 20px;
+          cursor: pointer;
+        }
+        .date-picker-month-navigator {
+          position: absolute;
+          left: 5px;
+          top: 4px;
+          padding-left: 0;
+        }
+      }
+
+      .date-picker-month-navigator {
+        cursor: pointer;
+        padding-left: 8px;
+        color: black;
+      }
+    }
+    .time-table {
+      width: 100%;
+      overflow-x: hidden;
+    }
+  }
 }
 
 @media screen and (max-width: 467px) {
