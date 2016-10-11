@@ -16,8 +16,7 @@
         <script src="/js/react.js"></script>
     </head>
     <body>
-        <div id="container">
-        </div>
-        <script src="/js/index.js"></script>
+        <div id="container"></div>
+        <script src="/js/built/index.js"></script>
     </body>
 </html>
