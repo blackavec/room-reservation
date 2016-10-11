@@ -5,8 +5,6 @@ export default class TimeTableEntity extends Component {
     super(props);
 
     this.state = props;
-
-    console.log(this.state);
   }
 
   capitalise(input) {
