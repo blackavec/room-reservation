@@ -131,14 +131,16 @@ body {
           position: absolute;
           left: 5px;
           top: 4px;
-          padding-left: 0;
+          margin-left: 0;
+          margin-right: 0;
         }
       }
 
       .date-picker-month-navigator {
         cursor: pointer;
-        padding-left: 8px;
         color: black;
+        margin-left: 30px;
+        margin-right: 30px;
       }
     }
 
