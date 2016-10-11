@@ -3,11 +3,14 @@ a {
   color: black;
   border-bottom: 1px dashed cyan;
 }
+
 a:hover, a:focus {
   text-decoration: none;
 }
+
 body {
   font-size: 12px;
+  line-height: 12px;
   padding: 10px;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
@@ -16,33 +19,41 @@ body {
   -ms-user-select: none;
   user-select: none;
 }
+
 .change-row-span {
   width: 135px;
   display: inline-block;
 }
+
 .date-range-row-span {
   width: 45px;
   display: inline-block;
   text-align: right;
   padding-right: 5px;
 }
+
 .checkbox {
   width: 200px;
+
   span {
     padding-left: 5px;
   }
 }
+
 .newline {
   margin-top: 5px;
 }
+
 .table-operation {
   &>tbody>tr:nth-of-type(odd) {
     background-color: #f5f6f1;
   }
+
   &>tbody>tr:nth-of-type(even) {
     background-color: #f9f9f9;
   }
 }
+
 .form-price-and-availibility {
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
   font-size: 12px;
@@ -58,39 +69,52 @@ body {
   .row-price {
     border-top: 1px solid #ddd;
     width: 100%;
-    padding: 5px 8px;
+    height: 34px;
+    padding: 11px 8px;
   }
+
   .row-price-availibility {
     border-top: none;
+    height: 72px;
     padding: 30px 8px;
   }
+
   .row-single-room {
     background-color: #c5c891 !important;
+    border: 1px solid #c5c891 !important;
   }
+
   .row-double-room {
     background-color: #c9e6ef !important;
+    border: 1px solid #c9e6ef !important;
   }
+
   .left-panel {
     display: inline-block;
     float: left;
     width: 20%;
   }
+
   .right-panel {
     display: inline-block;
     float: left;
-    border-left: 1px solid #ddd;
     width: 80%;
+    background-color: #eee;
 
     .top-date-picker {
       width: 100%;
-      padding: 2px 0;
+      height: 28px;
+      padding: 5px 0px;
       text-align: center;
+      border-bottom: 1px solid #C9C9C9;
+      border-left: 1px solid #C9C9C9;
 
       .date-picker-month-navigator-dropdown {
         width: 70px;
         display: inline-block;
         position: relative;
         background: transparent;
+
         select {
           background: transparent;
           width: 100%;
@@ -102,6 +126,7 @@ body {
           padding: 2px 0px 3px 20px;
           cursor: pointer;
         }
+
         .date-picker-month-navigator {
           position: absolute;
           left: 5px;
@@ -116,9 +141,61 @@ body {
         color: black;
       }
     }
-    .time-table {
+
+    .time-table-wrapper {
       width: 100%;
-      overflow-x: hidden;
+      overflow-x: scroll;
+
+      .time-table {
+        display: inline-flex;
+      }
+
+      .time-table-entity {
+        display: inline;
+        float: left;
+        width: 120px;
+        text-align: center;
+
+        .row-price-availibility {
+          height: 44px;
+          padding: 0;
+
+          .day-name {
+            &.weekend {
+              background-color: #7D2115;
+              color: #F1DFE6;
+            }
+
+            font-weight: bold;
+            height: 22px;
+            padding: 5px 0;
+            background-color: #ddd;
+            border-bottom: 1px solid #C9C9C9;
+          }
+
+          .day-number {
+            height: 22px;
+            padding: 6px 0;
+            height: 23px;
+            border-bottom: 1px solid #C9C9C9;
+          }
+        }
+
+        .row-single-room,
+        .row-double-room {
+          border-top: 1px solid #C9C9C9;
+          border-bottom: 1px solid #C9C9C9;
+        }
+
+        .row-price-availibility,
+        .row-room-available,
+        .row-price {
+          border-left: 1px solid #C9C9C9;
+        }
+        .row-price a:after {
+          content: " IDR";
+        }
+      }
     }
   }
 }
@@ -131,17 +208,21 @@ body {
       padding-left: 5px;
     }
   }
+
   .col-md-2{
     padding: 0;
   }
+
   .col-xs-6 {
     margin-top: -15px;
   }
+
   .mobile-new-line {
     display: inline-block;
     width: 100%;
     clear: both;
   }
+
   .date-range-row-span {
     text-align: left;
   }
@@ -150,21 +231,26 @@ body {
   .checkbox {
     width: 100%;
     margin-bottom: 10px;
+
     span {
       padding-left: 5px;
     }
   }
+
   .col-md-2 {
     padding: 0;
   }
+
   .col-xs-6 {
     margin-top: -15px;
   }
+
   .mobile-new-line {
     display: inline-block;
     width: 100%;
     clear: both;
   }
+
   .date-range-row-span {
     text-align: left;
   }
@@ -173,18 +259,22 @@ body {
   .checkbox {
     width: 100%;
     margin-bottom: 10px;
+
     span {
       padding-left: 5px;
     }
   }
+
   .col-md-2 {
     padding: 0;
   }
+
   .mobile-new-line {
     display: inline-block;
     width: 100%;
     clear: both;
   }
+
   .date-range-row-span {
     text-align: right;
   }
@@ -193,11 +283,13 @@ body {
   .col-md-2 {
     padding: 0;
   }
+
   .mobile-new-line {
     display: flex;
     width: 100%;
     padding-top: 5px;
   }
+
   .date-range-row-span {
     text-align: left;
   }
@@ -206,6 +298,7 @@ body {
   .col-md-2 {
     padding: 0;
   }
+
   .mobile-new-line {
     display: inline-block;
   }
