@@ -22097,15 +22097,13 @@
 	
 	    var operationCookies = _reactCookie2.default.load('operation');
 	
-	    console.log(operationCookies);
-	
 	    _this.state = {
 	      changePriceTo: operationCookies ? operationCookies.changePriceTo : 0,
 	      changeAvailibilityTo: operationCookies ? operationCookies.changeAvailibilityTo : 0,
 	      roomType: operationCookies ? operationCookies.roomType : 'single',
 	      dateFrom: operationCookies ? (0, _moment2.default)(operationCookies.dateFrom) : nowMoment,
 	      dateTo: operationCookies ? (0, _moment2.default)(operationCookies.dateTo) : nowMoment,
-	      isBulkOperationOpen: operationCookies ? operationCookies.isBulkOperationOpen : false,
+	      isBulkOperationOpen: false,
 	      allDays: operationCookies ? operationCookies.allDays : false,
 	      allWeekdays: operationCookies ? operationCookies.allWeekdays : false,
 	      allWeekends: operationCookies ? operationCookies.allWeekends : false,
@@ -22125,9 +22123,13 @@
 	  _createClass(Operation, [{
 	    key: 'doSetState',
 	    value: function doSetState(states) {
+	      var _this2 = this;
+	
 	      this.setState(states);
 	
-	      _reactCookie2.default.save('operation', this.state);
+	      setTimeout(function () {
+	        _reactCookie2.default.save('operation', _this2.state, { path: '/' });
+	      }, 0);
 	    }
 	  }, {
 	    key: 'handleChangeDateFrom',
@@ -22242,7 +22244,7 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this2 = this;
+	      var _this3 = this;
 	
 	      return _react2.default.createElement(
 	        'form',
@@ -22284,11 +22286,11 @@
 	                    'select',
 	                    {
 	                      onChange: function onChange(e) {
-	                        _this2.doSetState({
+	                        _this3.doSetState({
 	                          roomType: e.target.value
 	                        });
 	                      },
-	                      selected: this.state.roomType,
+	                      value: this.state.roomType,
 	                      className: 'form-control input-sm' },
 	                    _react2.default.createElement(
 	                      'option',
@@ -22430,7 +22432,7 @@
 	                      null,
 	                      _react2.default.createElement('input', {
 	                        onChange: function onChange() {
-	                          _this2.dayToggle('monday');
+	                          _this3.dayToggle('monday');
 	                        },
 	                        checked: this.state.daysOfWeek.monday,
 	                        type: 'checkbox' }),
@@ -22449,7 +22451,7 @@
 	                      null,
 	                      _react2.default.createElement('input', {
 	                        onChange: function onChange() {
-	                          _this2.dayToggle('tuesday');
+	                          _this3.dayToggle('tuesday');
 	                        },
 	                        checked: this.state.daysOfWeek.tuesday,
 	                        type: 'checkbox' }),
@@ -22468,7 +22470,7 @@
 	                      null,
 	                      _react2.default.createElement('input', {
 	                        onChange: function onChange() {
-	                          _this2.dayToggle('wednesday');
+	                          _this3.dayToggle('wednesday');
 	                        },
 	                        checked: this.state.daysOfWeek.wednesday,
 	                        type: 'checkbox' }),
@@ -22491,7 +22493,7 @@
 	                      null,
 	                      _react2.default.createElement('input', {
 	                        onChange: function onChange() {
-	                          _this2.dayToggle('thursday');
+	                          _this3.dayToggle('thursday');
 	                        },
 	                        checked: this.state.daysOfWeek.thursday,
 	                        type: 'checkbox' }),
@@ -22510,7 +22512,7 @@
 	                      null,
 	                      _react2.default.createElement('input', {
 	                        onChange: function onChange() {
-	                          _this2.dayToggle('friday');
+	                          _this3.dayToggle('friday');
 	                        },
 	                        checked: this.state.daysOfWeek.friday,
 	                        type: 'checkbox' }),
@@ -22529,7 +22531,7 @@
 	                      null,
 	                      _react2.default.createElement('input', {
 	                        onChange: function onChange() {
-	                          _this2.dayToggle('saturday');
+	                          _this3.dayToggle('saturday');
 	                        },
 	                        checked: this.state.daysOfWeek.saturday,
 	                        type: 'checkbox' }),
@@ -22552,7 +22554,7 @@
 	                      null,
 	                      _react2.default.createElement('input', {
 	                        onChange: function onChange() {
-	                          _this2.dayToggle('sunday');
+	                          _this3.dayToggle('sunday');
 	                        },
 	                        checked: this.state.daysOfWeek.sunday,
 	                        type: 'checkbox' }),
@@ -22582,7 +22584,7 @@
 	                  ),
 	                  _react2.default.createElement('input', {
 	                    onChange: function onChange(e) {
-	                      _this2.doSetState({
+	                      _this3.doSetState({
 	                        changePriceTo: e.target.value
 	                      });
 	                    },
@@ -22601,7 +22603,7 @@
 	                  ),
 	                  _react2.default.createElement('input', {
 	                    onChange: function onChange(e) {
-	                      _this2.doSetState({
+	                      _this3.doSetState({
 	                        changeAvailibilityTo: e.target.value
 	                      });
 	                    },
@@ -47061,370 +47063,7 @@
 	      return _react2.default.createElement(
 	        "form",
 	        { className: "form-inline form-price-and-availibility" },
-	        _react2.default.createElement(
-	          "table",
-	          { className: "table table-bordered table-striped table-price-and-availibility" },
-	          _react2.default.createElement(
-	            "tbody",
-	            null,
-	            _react2.default.createElement(
-	              "tr",
-	              null,
-	              _react2.default.createElement(
-	                "td",
-	                { rowSpan: 2, className: "fixed-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "Price and Availability"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { colSpan: 4, className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "tr",
-	              null,
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "tr",
-	              { className: "single-room" },
-	              _react2.default.createElement(
-	                "td",
-	                { className: "fixed-column single-room" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "Single Room"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "tr",
-	              null,
-	              _react2.default.createElement(
-	                "td",
-	                { className: "fixed-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "Room availabile"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "tr",
-	              null,
-	              _react2.default.createElement(
-	                "td",
-	                { className: "fixed-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "Price"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "tr",
-	              { className: "double-room" },
-	              _react2.default.createElement(
-	                "td",
-	                { className: "fixed-column double-room" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "Double Room"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "tr",
-	              null,
-	              _react2.default.createElement(
-	                "td",
-	                { className: "fixed-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "Room availabile"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              )
-	            ),
-	            _react2.default.createElement(
-	              "tr",
-	              null,
-	              _react2.default.createElement(
-	                "td",
-	                { className: "fixed-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "Price"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              ),
-	              _react2.default.createElement(
-	                "td",
-	                { className: "elastic-column" },
-	                _react2.default.createElement(
-	                  "span",
-	                  null,
-	                  "QWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWEQWE"
-	                )
-	              )
-	            )
-	          )
-	        )
+	        _react2.default.createElement("div", { className: "" })
 	      );
 	    }
 	  }]);
@@ -47475,7 +47114,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-size: 12px;\n  padding: 10px; }\n\n.change-row-span {\n  width: 135px;\n  display: inline-block; }\n\n.date-range-row-span {\n  width: 45px;\n  display: inline-block;\n  text-align: right;\n  padding-right: 5px; }\n\n.checkbox {\n  width: 200px; }\n  .checkbox span {\n    padding-left: 5px; }\n\n.newline {\n  margin-top: 5px; }\n\n.table-operation > tbody > tr:nth-of-type(odd) {\n  background-color: #f5f6f1; }\n\n.table-operation > tbody > tr:nth-of-type(even) {\n  background-color: #f9f9f9; }\n\n.form-price-and-availibility {\n  width: 100%;\n  overflow-x: scroll;\n  overflow-y: visible; }\n  .form-price-and-availibility .table-price-and-availibility .single-room {\n    background-color: #c5c891 !important; }\n  .form-price-and-availibility .table-price-and-availibility .double-room {\n    background-color: #c9e6ef !important; }\n  .form-price-and-availibility .table-price-and-availibility tr td:nth-child(1) {\n    background-color: #f5f6f2;\n    z-index: 100; }\n  .form-price-and-availibility .table-price-and-availibility tr td:nth-child(2) {\n    padding-left: 210px; }\n  .form-price-and-availibility .table-price-and-availibility > tbody > tr:nth-of-type(odd) {\n    background-color: #f5f6f1; }\n  .form-price-and-availibility .table-price-and-availibility > tbody > tr:nth-of-type(even) {\n    background-color: #f9f9f9; }\n  .form-price-and-availibility .table-price-and-availibility .fixed-column {\n    position: absolute;\n    left: 10px;\n    width: 200px;\n    top: auto; }\n  .form-price-and-availibility .table-price-and-availibility .elastic-column {\n    position: relative; }\n\n@media screen and (max-width: 467px) {\n  .checkbox {\n    width: 100%;\n    margin-bottom: 10px; }\n    .checkbox span {\n      padding-left: 5px; }\n  .col-md-2 {\n    padding: 0; }\n  .col-xs-6 {\n    margin-top: -15px; }\n  .mobile-new-line {\n    display: inline-block;\n    width: 100%;\n    clear: both; }\n  .date-range-row-span {\n    text-align: left; } }\n\n@media screen and (min-width: 467px) and (max-width: 767px) {\n  .checkbox {\n    width: 100%;\n    margin-bottom: 10px; }\n    .checkbox span {\n      padding-left: 5px; }\n  .col-md-2 {\n    padding: 0; }\n  .col-xs-6 {\n    margin-top: -15px; }\n  .mobile-new-line {\n    display: inline-block;\n    width: 100%;\n    clear: both; }\n  .date-range-row-span {\n    text-align: left; } }\n\n@media screen and (min-width: 767px) and (max-width: 989px) {\n  .checkbox {\n    width: 100%;\n    margin-bottom: 10px; }\n    .checkbox span {\n      padding-left: 5px; }\n  .col-md-2 {\n    padding: 0; }\n  .mobile-new-line {\n    display: inline-block;\n    width: 100%;\n    clear: both; }\n  .date-range-row-span {\n    text-align: right; } }\n\n@media screen and (min-width: 990px) and (max-width: 1240px) {\n  .col-md-2 {\n    padding: 0; }\n  .mobile-new-line {\n    display: flex;\n    width: 100%;\n    padding-top: 5px; }\n  .date-range-row-span {\n    text-align: left; } }\n\n@media screen and (min-width: 1240px) {\n  .col-md-2 {\n    padding: 0; }\n  .mobile-new-line {\n    display: inline-block; } }\n", ""]);
+	exports.push([module.id, "a {\n  font-weight: normal;\n  color: black;\n  border-bottom: 1px dashed cyan; }\n\na:hover, a:focus {\n  text-decoration: none; }\n\nbody {\n  font-size: 12px;\n  padding: 10px; }\n\n.change-row-span {\n  width: 135px;\n  display: inline-block; }\n\n.date-range-row-span {\n  width: 45px;\n  display: inline-block;\n  text-align: right;\n  padding-right: 5px; }\n\n.checkbox {\n  width: 200px; }\n  .checkbox span {\n    padding-left: 5px; }\n\n.newline {\n  margin-top: 5px; }\n\n.table-operation > tbody > tr:nth-of-type(odd) {\n  background-color: #f5f6f1; }\n\n.table-operation > tbody > tr:nth-of-type(even) {\n  background-color: #f9f9f9; }\n\n.form-price-and-availibility {\n  border: 1px solid #ddd;\n  background-color: #f5f6f2; }\n\n@media screen and (max-width: 467px) {\n  .checkbox {\n    width: 100%;\n    margin-bottom: 10px; }\n    .checkbox span {\n      padding-left: 5px; }\n  .col-md-2 {\n    padding: 0; }\n  .col-xs-6 {\n    margin-top: -15px; }\n  .mobile-new-line {\n    display: inline-block;\n    width: 100%;\n    clear: both; }\n  .date-range-row-span {\n    text-align: left; } }\n\n@media screen and (min-width: 467px) and (max-width: 767px) {\n  .checkbox {\n    width: 100%;\n    margin-bottom: 10px; }\n    .checkbox span {\n      padding-left: 5px; }\n  .col-md-2 {\n    padding: 0; }\n  .col-xs-6 {\n    margin-top: -15px; }\n  .mobile-new-line {\n    display: inline-block;\n    width: 100%;\n    clear: both; }\n  .date-range-row-span {\n    text-align: left; } }\n\n@media screen and (min-width: 767px) and (max-width: 989px) {\n  .checkbox {\n    width: 100%;\n    margin-bottom: 10px; }\n    .checkbox span {\n      padding-left: 5px; }\n  .col-md-2 {\n    padding: 0; }\n  .mobile-new-line {\n    display: inline-block;\n    width: 100%;\n    clear: both; }\n  .date-range-row-span {\n    text-align: right; } }\n\n@media screen and (min-width: 990px) and (max-width: 1240px) {\n  .col-md-2 {\n    padding: 0; }\n  .mobile-new-line {\n    display: flex;\n    width: 100%;\n    padding-top: 5px; }\n  .date-range-row-span {\n    text-align: left; } }\n\n@media screen and (min-width: 1240px) {\n  .col-md-2 {\n    padding: 0; }\n  .mobile-new-line {\n    display: inline-block; } }\n", ""]);
 	
 	// exports
 

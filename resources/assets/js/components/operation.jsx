@@ -13,8 +13,6 @@ export default class Operation extends Component {
 
     const operationCookies = cookie.load('operation');
 
-    console.log(operationCookies);
-
     this.state = {
       changePriceTo: operationCookies ? operationCookies.changePriceTo : 0,
       changeAvailibilityTo: operationCookies
@@ -23,9 +21,7 @@ export default class Operation extends Component {
       roomType: operationCookies ? operationCookies.roomType : 'single',
       dateFrom: operationCookies ? moment(operationCookies.dateFrom) : nowMoment,
       dateTo: operationCookies ? moment(operationCookies.dateTo) : nowMoment,
-      isBulkOperationOpen: operationCookies
-        ? operationCookies.isBulkOperationOpen
-        : false,
+      isBulkOperationOpen: false,
       allDays: operationCookies ? operationCookies.allDays : false,
       allWeekdays: operationCookies ? operationCookies.allWeekdays : false,
       allWeekends: operationCookies ? operationCookies.allWeekends : false,
@@ -58,7 +54,9 @@ export default class Operation extends Component {
   doSetState(states) {
     this.setState(states);
 
-    cookie.save('operation', this.state);
+    setTimeout(() => {
+      cookie.save('operation', this.state, { path: '/' });
+    }, 0);
   }
 
   handleChangeDateFrom(date) {
@@ -182,7 +180,7 @@ export default class Operation extends Component {
                         roomType: e.target.value,
                       });
                     }}
-                    selected={this.state.roomType}
+                    value={this.state.roomType}
                     className="form-control input-sm">
                     <option value="single">Single Room</option>
                     <option value="double">Double Room</option>
