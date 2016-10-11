@@ -1,7 +1,7 @@
 module.exports = {
   entry: './resources/assets/js/index.jsx',
   output: {
-      filename: 'public/js/index.js',
+      filename: 'public/js/built/index.js',
   },
   module: {
     loaders: [
