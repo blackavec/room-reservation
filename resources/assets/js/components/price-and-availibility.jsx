@@ -51,7 +51,7 @@ export default class PriceAndAvailibility extends Component {
         doubleRoomPrice: 0,
       });
 
-      if (dayOfMonth.format('MM-DD-YYYY') === this.state.viewTimelineRange.end.format('MM-DD-YYYY')) {
+      if (dayOfMonth.format('YYYY-DD-MM') === this.state.viewTimelineRange.end.format('YYYY-DD-MM')) {
         reachedEnd = true;
       }
 
@@ -152,6 +152,22 @@ export default class PriceAndAvailibility extends Component {
                   this.state.viewTimelineRange,
                 ]);
               }}></span>
+          </div>
+          <div className="scroll scroll-left">
+            <span
+              className="date-picker-month-navigator
+              glyphicon glyphicon-triangle-left"
+              onClick={() => {
+              }}>
+            </span>
+          </div>
+          <div className="scroll scroll-right">
+            <span
+              className="date-picker-month-navigator
+              glyphicon glyphicon-triangle-right"
+              onClick={() => {
+              }}>
+            </span>
           </div>
           <div className="time-table-wrapper">
             <div className="time-table">

@@ -100,6 +100,7 @@ body {
     float: left;
     width: 80%;
     background-color: #eee;
+    position: relative;
 
     .top-date-picker {
       width: 100%;
@@ -142,6 +143,21 @@ body {
         margin-left: 30px;
         margin-right: 30px;
       }
+    }
+
+    .scroll {
+      position: absolute;
+      span {
+        cursor: pointer;
+      }
+    }
+
+    .scroll-left {
+      left: 0;
+    }
+
+    .scroll-right {
+      right: 0;
     }
 
     .time-table-wrapper {
