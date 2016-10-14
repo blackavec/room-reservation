@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import moment from 'moment';
+import $ from 'jquery';
 import TimeTableEntity from './time-table-entity.jsx'
 
 export default class PriceAndAvailibility extends Component {
@@ -16,6 +17,23 @@ export default class PriceAndAvailibility extends Component {
       viewTimelineRange: this.getMonthDateRange(),
       viewTimelineDatas: []
     };
+  }
+
+  scroll(direction) {
+    const scrollSize = 300;
+    const wrapper    = $('.time-table-wrapper');
+
+    if (direction === 'left') {
+      wrapper.stop().animate({
+        scrollLeft: wrapper.scrollLeft() - scrollSize,
+      }, 300);
+
+      return;
+    }
+
+    wrapper.stop().animate({
+      scrollLeft: wrapper.scrollLeft() + scrollSize,
+    }, 300);
   }
 
   getMonthDateRange() {
@@ -157,16 +175,14 @@ export default class PriceAndAvailibility extends Component {
             <span
               className="date-picker-month-navigator
               glyphicon glyphicon-triangle-left"
-              onClick={() => {
-              }}>
+              onClick={this.scroll.bind(this, 'left')}>
             </span>
           </div>
           <div className="scroll scroll-right">
             <span
               className="date-picker-month-navigator
               glyphicon glyphicon-triangle-right"
-              onClick={() => {
-              }}>
+              onClick={this.scroll.bind(this, 'right')}>
             </span>
           </div>
           <div className="time-table-wrapper">

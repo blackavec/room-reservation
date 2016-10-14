@@ -93,6 +93,11 @@ body {
     display: inline-block;
     float: left;
     width: 20%;
+
+    span {
+      white-space:nowrap;
+      text-overflow:ellipsis;
+    }
   }
 
   .right-panel {
@@ -150,14 +155,16 @@ body {
       span {
         cursor: pointer;
       }
+
+      top: 54px;
     }
 
     .scroll-left {
-      left: 0;
+      left: 5px;
     }
 
     .scroll-right {
-      right: 0;
+      right: 5px;
     }
 
     .time-table-wrapper {
