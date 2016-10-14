@@ -1,8 +1,69 @@
 import React, { Component } from 'react';
+import moment from 'moment';
 import TimeTableEntity from './time-table-entity.jsx'
 
 export default class PriceAndAvailibility extends Component {
+  constructor(props) {
+    super(props);
+
+    const nowMoment = moment();
+
+    this.state = {
+      navigator: {
+        currentYear: nowMoment.year(),
+        currentMonth: nowMoment.month(),
+      },
+      viewTimelineRange: this.getMonthDateRange(),
+      viewTimelineDatas: []
+    };
+  }
+
+  getMonthDateRange() {
+    let currentMoment = moment();
+
+    if (this.state) {
+      currentMoment.set({
+        'year': this.state.navigator.currentYear,
+        'month': this.state.navigator.currentMonth,
+      });
+    }
+
+    const startDate = currentMoment.date(1);
+    const endDate   = moment(startDate).endOf('month');
+
+    return { start: startDate, end: endDate };
+  }
+
+  prepareTimeline () {
+    let timeline = [];
+
+    let reachedEnd   = false;
+
+    const dayOfMonth = this.state.viewTimelineRange.start;
+
+    while (!reachedEnd) {
+      timeline.push({
+        dayName: dayOfMonth.format('dddd'),
+        dayNumber: dayOfMonth.format('D'),
+        singleRoomAvailable: 0,
+        singleRoomPrice: 0,
+        doubleRoomAvailable: 0,
+        doubleRoomPrice: 0,
+      });
+
+      if (dayOfMonth.format('MM-DD-YYYY') === this.state.viewTimelineRange.end.format('MM-DD-YYYY')) {
+        reachedEnd = true;
+      }
+
+      dayOfMonth.add(1, 'day');
+    }
+
+    return timeline;
+  }
+
   render() {
+    const timeline = this.prepareTimeline();
+
     return (
       <form className="form-inline form-price-and-availibility">
         <div className="left-panel">
@@ -30,41 +91,85 @@ export default class PriceAndAvailibility extends Component {
         </div>
         <div className="right-panel">
           <div className="top-date-picker">
-            <span className="date-picker-month-navigator
-              glyphicon glyphicon-triangle-left">
+            <span
+              className="date-picker-month-navigator
+              glyphicon glyphicon-triangle-left"
+              onClick={() => {
+                this.state.navigator.currentYear--;
+                this.state.viewTimelineRange = this.getMonthDateRange();
+
+                this.setState([
+                  this.state.navigator,
+                  this.state.viewTimelineRange,
+                ]);
+              }}>
             </span>
             <div className="date-picker-month-navigator-dropdown">
-              <select>
-                <option value="1">January</option>
-                <option value="2">February</option>
-                <option value="3">March</option>
-                <option value="4">April</option>
-                <option value="5">May</option>
-                <option value="6">June</option>
-                <option value="7">July</option>
-                <option value="8">August</option>
-                <option value="9">September</option>
-                <option value="10">October</option>
-                <option value="11">November</option>
-                <option value="12">December</option>
+              <select
+                onChange={(e) => {
+                  this.state.navigator.currentMonth = e.target.value;
+                  this.state.viewTimelineRange      = this.getMonthDateRange();
+
+                  this.setState([
+                    this.state.navigator,
+                    this.state.viewTimelineRange,
+                  ]);
+                }}
+                value={this.state.navigator.currentMonth}>
+                selected={this.state.navigator.currentMonth}>
+                {
+                  [
+                    'January',
+                    'February',
+                    'March',
+                    'April',
+                    'May',
+                    'June',
+                    'July',
+                    'August',
+                    'September',
+                    'October',
+                    'November',
+                    'December',
+                  ].map((monthName, i) => {
+                    return (<option key={i} value={i}>{monthName}</option>);
+                  })
+                }
               </select>
               <span className="date-picker-month-navigator
                 glyphicon glyphicon-triangle-bottom"></span>
             </div>
-            <span>2016</span>
-            <span className="date-picker-month-navigator
-              glyphicon glyphicon-triangle-right"></span>
+            <span>{this.state.navigator.currentYear}</span>
+            <span
+              className="date-picker-month-navigator
+              glyphicon glyphicon-triangle-right"
+              onClick={() => {
+                this.state.navigator.currentYear++;
+                this.state.viewTimelineRange = this.getMonthDateRange();
+
+                this.setState([
+                  this.state.navigator,
+                  this.state.viewTimelineRange,
+                ]);
+              }}></span>
           </div>
           <div className="time-table-wrapper">
             <div className="time-table">
-              <TimeTableEntity
-                dayName="Sunday"
-                dayNumber={0}
-                singleRoomAvailable={0}
-                singleRoomPrice={0}
-                doubleRoomAvailable={0}
-                doubleRoomPrice={0}
-                />
+              {
+                timeline.map((obj, i) => {
+                  return (
+                    <TimeTableEntity
+                      key={i}
+                      dayName={obj.dayName}
+                      dayNumber={obj.dayNumber}
+                      singleRoomAvailable={obj.singleRoomAvailable}
+                      singleRoomPrice={obj.singleRoomPrice}
+                      doubleRoomAvailable={obj.doubleRoomAvailable}
+                      doubleRoomPrice={obj.doubleRoomPrice}
+                      />
+                  );
+                })
+              }
             </div>
           </div>
         </div>

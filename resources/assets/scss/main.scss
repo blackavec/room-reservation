@@ -110,7 +110,7 @@ body {
       border-left: 1px solid #C9C9C9;
 
       .date-picker-month-navigator-dropdown {
-        width: 70px;
+        width: 85px;
         display: inline-block;
         position: relative;
         background: transparent;
@@ -158,6 +158,10 @@ body {
         width: 120px;
         text-align: center;
 
+        a {
+          padding: 0 10px;
+        }
+
         .row-price-availibility {
           height: 44px;
           padding: 0;
@@ -194,8 +198,11 @@ body {
         .row-price {
           border-left: 1px solid #C9C9C9;
         }
-        .row-price a:after {
-          content: " IDR";
+
+        .row-price {
+          a {
+            padding: 0 5px;
+          }
         }
       }
     }

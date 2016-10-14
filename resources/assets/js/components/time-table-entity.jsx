@@ -38,9 +38,7 @@ export default class TimeTableEntity extends Component {
             {this.capitalise(this.state.dayName)}
           </div>
           <div className="day-number">
-            <a href="javascript:void(0);">
               {this.state.dayNumber}
-            </a>
           </div>
         </div>
         <div className="row-single-room"></div>
@@ -53,6 +51,7 @@ export default class TimeTableEntity extends Component {
           <a href="javascript:void(0);">
             {this.state.singleRoomPrice}
           </a>
+          <span>IDR</span>
         </div>
         <div className="row-double-room"></div>
         <div className="row-room-available">
@@ -64,6 +63,7 @@ export default class TimeTableEntity extends Component {
           <a href="javascript:void(0);">
             {this.state.doubleRoomPrice}
           </a>
+          <span>IDR</span>
         </div>
       </div>
     );
