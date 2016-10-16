@@ -18,6 +18,8 @@ export default class PriceAndAvailibility extends Component {
       viewTimelineRange: this.getMonthDateRange(),
       viewTimelineDatas: []
     };
+
+    this.sendRequest();
   }
 
 
@@ -59,11 +61,18 @@ export default class PriceAndAvailibility extends Component {
   }
 
   sendRequest() {
-    this.setState({
-      waiting: true,
-    });
+    this.state.waiting = true;
+    const range        = this.state.viewTimelineRange;
 
-    this.request = $.get('/timeline', this.requestResponse.bind(this));
+    this.request = $.getJSON('/timeline', {
+      start: this.state.viewTimelineRange['start'].format(),
+      end: this.state.viewTimelineRange['end'].format(),
+    });
+    this.request.then((res) => {
+      console.log('fulfil', res);
+    }, (reject) => {
+      console.log('rejected', reject);
+    });
   }
 
   prepareTimeline () {
@@ -71,16 +80,33 @@ export default class PriceAndAvailibility extends Component {
 
     let reachedEnd   = false;
 
-    const dayOfMonth = this.state.viewTimelineRange.start;
+    const dayOfMonth   = this.state.viewTimelineRange.start;
+    const timelineDates = this.state.viewTimelineDatas;
 
     while (!reachedEnd) {
+      const timelineDate = dayOfMonth.format('YYYY-DD-MM');
+
+      let singleRoomAvailable = 0;
+      let singleRoomPrice = 0;
+      let doubleRoomAvailable = 0;
+      let doubleRoomPrice = 0;
+
+      if (timelineDates.hasOwnProperty(timelineDate)) {
+        const timelineDateObject = timelineDates[timelineDate];
+
+        singleRoomAvailable = timelineDateObject.singleRoomAvailable;
+        singleRoomPrice = timelineDateObject.singleRoomPrice;
+        doubleRoomAvailable = timelineDateObject.doubleRoomAvailable;
+        doubleRoomPrice = timelineDateObject.doubleRoomPrice;
+      }
+
       timeline.push({
         dayName: dayOfMonth.format('dddd'),
         dayNumber: dayOfMonth.format('D'),
-        singleRoomAvailable: 0,
-        singleRoomPrice: 0,
-        doubleRoomAvailable: 0,
-        doubleRoomPrice: 0,
+        singleRoomAvailable: singleRoomAvailable,
+        singleRoomPrice: singleRoomPrice,
+        doubleRoomAvailable: doubleRoomAvailable,
+        doubleRoomPrice: doubleRoomPrice,
       });
 
       if (dayOfMonth.format('YYYY-DD-MM') === this.state.viewTimelineRange.end.format('YYYY-DD-MM')) {
