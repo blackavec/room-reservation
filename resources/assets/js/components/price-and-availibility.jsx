@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import $ from 'jquery';
-import TimeTableEntity from './time-table-entity.jsx'
+import TimeTableEntity from './time-table-entity.jsx';
+import Waiting from './waiting.jsx';
 
 export default class PriceAndAvailibility extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ export default class PriceAndAvailibility extends Component {
       viewTimelineDatas: []
     };
   }
+
 
   scroll(direction) {
     const scrollSize = 300;
@@ -52,6 +54,18 @@ export default class PriceAndAvailibility extends Component {
     return { start: startDate, end: endDate };
   }
 
+  requestResponse(res) {
+    console.error(res);
+  }
+
+  sendRequest() {
+    this.setState({
+      waiting: true,
+    });
+
+    this.request = $.get('/timeline', this.requestResponse.bind(this));
+  }
+
   prepareTimeline () {
     let timeline = [];
 
@@ -83,7 +97,7 @@ export default class PriceAndAvailibility extends Component {
     const timeline = this.prepareTimeline();
 
     return (
-      <form className="form-inline form-price-and-availibility">
+      <div className="form-inline form-price-and-availibility">
         <div className="left-panel">
           <div className="row-price-availibility">
             <span>Price and Availability</span>
@@ -206,7 +220,8 @@ export default class PriceAndAvailibility extends Component {
           </div>
         </div>
         <div className="clearfix"></div>
-      </form>
+        <Waiting show={this.state.waiting} />
+      </div>
     );
   }
 }

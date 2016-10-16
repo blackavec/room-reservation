@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
-import DatePickerInput from './datepicker.jsx';
 import moment from 'moment';
 import cookie from 'react-cookie';
+import DatePickerInput from './datepicker.jsx';
+import Waiting from './waiting.jsx';
 
 require('react-datepicker/dist/react-datepicker.css');
 const nowMoment = moment();
@@ -14,6 +15,7 @@ export default class Operation extends Component {
     const operationCookies = cookie.load('operation');
 
     this.state = {
+      waiting: false,
       changePriceTo: operationCookies ? operationCookies.changePriceTo : 0,
       changeAvailibilityTo: operationCookies
         ? operationCookies.changeAvailibilityTo
@@ -157,12 +159,14 @@ export default class Operation extends Component {
   }
 
   update() {
-    console.log('update');
+    this.doSetState({
+      waiting: true,
+    });
   }
 
   render() {
     return (
-      <form className="form-inline">
+      <form className="form-inline operation">
         <table className="table table-bordered table-striped table-operation">
           <tbody>
             <tr>
@@ -384,6 +388,7 @@ export default class Operation extends Component {
             </tr>
           </tbody>
         </table>
+        <Waiting show={this.state.waiting} />
       </form>
     );
   }
