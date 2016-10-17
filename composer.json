@@ -43,7 +43,7 @@
             "Illuminate\\Foundation\\ComposerScripts::postUpdate",
             "php artisan optimize"
         ],
-        "docker-mysql": "docker run -d --name db-laravel-mysql -e MYSQL_DATABASE=mydb -e MYSQL_ROOT_PASSWORD=my-secret-pw -v ~/.data/mysql:/var/lib/mysql -p 3306:3306 -d mysql"
+        "docker-mysql": "docker run -d -e MYSQL_DATABASE=mydb -e MYSQL_ROOT_PASSWORD=my-secret-pw -v ~/.data/mysql:/var/lib/mysql -p 3306:3306 -d mysql"
     },
     "config": {
         "preferred-install": "dist"
