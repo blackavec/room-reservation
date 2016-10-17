@@ -11,6 +11,7 @@ export default class PriceAndAvailibility extends Component {
     const nowMoment = moment();
 
     this.state = {
+      waiting: false,
       navigator: {
         currentYear: nowMoment.year(),
         currentMonth: nowMoment.month(),
@@ -19,9 +20,15 @@ export default class PriceAndAvailibility extends Component {
       viewTimelineDatas: []
     };
 
+  }
+
+  componentDidMount() {
     this.sendRequest();
   }
 
+  componentWillUnmount() {
+    this.request.abort();
+  }
 
   scroll(direction) {
     const scrollSize = 300;
@@ -56,43 +63,55 @@ export default class PriceAndAvailibility extends Component {
     return { start: startDate, end: endDate };
   }
 
-  requestResponse(res) {
-    console.error(res);
-  }
-
   sendRequest() {
-    this.state.waiting = true;
-    const range        = this.state.viewTimelineRange;
+    const range = this.state.viewTimelineRange;
 
-    this.request = $.getJSON('/timeline', {
-      start: this.state.viewTimelineRange['start'].format(),
-      end: this.state.viewTimelineRange['end'].format(),
+    this.setState({
+      waiting: true,
     });
-    this.request.then((res) => {
+
+    this.request = $.get('/timeline', {
+      start: range['start'].format(),
+      end: range['end'].format(),
+    });
+
+    this.request.done((res) => {
       console.log('fulfil', res);
-    }, (reject) => {
+
+    });
+
+    this.request.fail((reject) => {
       console.log('rejected', reject);
+    });
+
+    this.request.always(() => {
+      console.log('always');
+
+      this.setState({
+        waiting: false,
+      });
     });
   }
 
   prepareTimeline () {
     let timeline = [];
 
-    let reachedEnd   = false;
+    let reachedEnd = false;
+    let counter    = 0;
 
-    const dayOfMonth   = this.state.viewTimelineRange.start;
+    const dayOfMonth    = this.state.viewTimelineRange.start;
     const timelineDates = this.state.viewTimelineDatas;
 
-    while (!reachedEnd) {
-      const timelineDate = dayOfMonth.format('YYYY-DD-MM');
+    for (let day = 1 ; day <= parseInt(this.state.viewTimelineRange.end.format('DD')) ; day++) {
+      const timelineDate = moment(dayOfMonth).add(day - 1, 'day');
 
       let singleRoomAvailable = 0;
       let singleRoomPrice = 0;
       let doubleRoomAvailable = 0;
       let doubleRoomPrice = 0;
 
-      if (timelineDates.hasOwnProperty(timelineDate)) {
-        const timelineDateObject = timelineDates[timelineDate];
+      if (timelineDates.hasOwnProperty(timelineDate.format('YYYY-DD-MM'))) {
+        const timelineDateObject = timelineDates[timelineDate.format('YYYY-DD-MM')];
 
         singleRoomAvailable = timelineDateObject.singleRoomAvailable;
         singleRoomPrice = timelineDateObject.singleRoomPrice;
@@ -101,19 +120,13 @@ export default class PriceAndAvailibility extends Component {
       }
 
       timeline.push({
-        dayName: dayOfMonth.format('dddd'),
-        dayNumber: dayOfMonth.format('D'),
+        dayName: timelineDate.format('dddd'),
+        dayNumber: timelineDate.format('YYYY-DD-MM'),
         singleRoomAvailable: singleRoomAvailable,
         singleRoomPrice: singleRoomPrice,
         doubleRoomAvailable: doubleRoomAvailable,
         doubleRoomPrice: doubleRoomPrice,
       });
-
-      if (dayOfMonth.format('YYYY-DD-MM') === this.state.viewTimelineRange.end.format('YYYY-DD-MM')) {
-        reachedEnd = true;
-      }
-
-      dayOfMonth.add(1, 'day');
     }
 
     return timeline;

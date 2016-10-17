@@ -22,6 +22,7 @@ class TimelineController extends Controller
 
     /**
      * @param Request $request
+     * @return JsonResponse
      */
     public function dateList(Request $request)
     {
