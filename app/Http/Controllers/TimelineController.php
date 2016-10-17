@@ -25,7 +25,13 @@ class TimelineController extends Controller
      */
     public function dateList(Request $request)
     {
+        $this->validate($request , [
+            'start' => 'required|date',
+            'end' => 'required|date',
+        ]);
+
         $dateRange = $request->only(['start', 'end']);
+
 
         $dates = $this->timetable->findByRange(
             new Carbon($dateRange['start']),
