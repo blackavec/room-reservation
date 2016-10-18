@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\TimeTableRepository;
+use App\Transformers\TimetableTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 
-class TimelineController extends Controller
+class TimetableController extends Controller
 {
     /**
      * @var TimeTableRepository
@@ -38,6 +39,8 @@ class TimelineController extends Controller
             new Carbon($dateRange['start']),
             new Carbon($dateRange['end'])
         );
+
+        dd($this->collection($dates, new TimetableTransformer()));
 
         return response()->json($dates->toArray(), 200);
     }

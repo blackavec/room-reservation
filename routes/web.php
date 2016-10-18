@@ -2,4 +2,4 @@
 
 Route::get('/', 'HomeController@home')->name('home');
 
-Route::get('/timeline', 'TimelineController@dateList')->name('datalist');
+Route::get('/timetable', 'TimetableController@dateList')->name('datalist');

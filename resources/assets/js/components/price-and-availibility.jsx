@@ -3,6 +3,7 @@ import moment from 'moment';
 import $ from 'jquery';
 import TimeTableEntity from './time-table-entity.jsx';
 import Waiting from './waiting.jsx';
+import NotificationSystem from 'react-notification-system';
 
 export default class PriceAndAvailibility extends Component {
   constructor(props) {
@@ -16,10 +17,17 @@ export default class PriceAndAvailibility extends Component {
         currentYear: nowMoment.year(),
         currentMonth: nowMoment.month(),
       },
-      viewTimelineRange: this.getMonthDateRange(),
-      viewTimelineDatas: []
+      viewTimetableRange: this.getMonthDateRange(),
+      viewTimetableDatas: []
     };
+  }
 
+  showNotification(message, level) {
+    this.refs.notificationSystem.addNotification({
+      message: message,
+      level: level,
+      position: 'bl', // bottom center
+    });
   }
 
   componentDidMount() {
@@ -34,16 +42,8 @@ export default class PriceAndAvailibility extends Component {
     const scrollSize = 300;
     const wrapper    = $('.time-table-wrapper');
 
-    if (direction === 'left') {
-      wrapper.stop().animate({
-        scrollLeft: wrapper.scrollLeft() - scrollSize,
-      }, 300);
-
-      return;
-    }
-
     wrapper.stop().animate({
-      scrollLeft: wrapper.scrollLeft() + scrollSize,
+      scrollLeft: wrapper.scrollLeft() + (direction === 'left' ? -1 : 1) * scrollSize,
     }, 300);
   }
 
@@ -64,64 +64,71 @@ export default class PriceAndAvailibility extends Component {
   }
 
   sendRequest() {
-    const range = this.state.viewTimelineRange;
+    const range = this.state.viewTimetableRange;
 
     this.setState({
       waiting: true,
     });
 
-    this.request = $.get('/timeline', {
+    this.request = $.getJSON('/timetable', {
       start: range['start'].format(),
       end: range['end'].format(),
     });
 
-    this.request.done((res) => {
-      console.log('fulfil', res);
+    this.request.done((items) => {
+      const viewTimetableDatas = this.state.viewTimetableDatas;
 
+      items.forEach((item) => {
+        viewTimetableDatas[item.date] = {
+          singleRoomAvailable: item.singleRoomAvailable,
+          singleRoomPrice: item.singleRoomPrice,
+          doubleRoomAvailable: item.doubleRoomAvailable,
+          doubleRoomPrice: item.doubleRoomPrice,
+        };
+      });
+
+      this.setState({
+        viewTimetableDatas,
+      });
     });
 
-    this.request.fail((reject) => {
-      console.log('rejected', reject);
+    this.request.fail(() => {
+      this.showNotification('Request Failed, please try again', 'error');
     });
 
     this.request.always(() => {
-      console.log('always');
-
       this.setState({
         waiting: false,
       });
     });
   }
 
-  prepareTimeline () {
-    let timeline = [];
+  prepareTimetable () {
+    let timetable = [];
 
-    let reachedEnd = false;
-    let counter    = 0;
+    const dayOfMonth    = this.state.viewTimetableRange.start;
+    const timetableDates = this.state.viewTimetableDatas;
 
-    const dayOfMonth    = this.state.viewTimelineRange.start;
-    const timelineDates = this.state.viewTimelineDatas;
-
-    for (let day = 1 ; day <= parseInt(this.state.viewTimelineRange.end.format('DD')) ; day++) {
-      const timelineDate = moment(dayOfMonth).add(day - 1, 'day');
+    for (let day = 1 ; day <= parseInt(this.state.viewTimetableRange.end.format('DD')) ; day++) {
+      const timetableDate = moment(dayOfMonth).add(day - 1, 'day');
 
       let singleRoomAvailable = 0;
       let singleRoomPrice = 0;
       let doubleRoomAvailable = 0;
       let doubleRoomPrice = 0;
 
-      if (timelineDates.hasOwnProperty(timelineDate.format('YYYY-DD-MM'))) {
-        const timelineDateObject = timelineDates[timelineDate.format('YYYY-DD-MM')];
+      if (timetableDates.hasOwnProperty(timetableDate.format('YYYY-DD-MM'))) {
+        const timetableDateObject = timetableDates[timetableDate.format('YYYY-DD-MM')];
 
-        singleRoomAvailable = timelineDateObject.singleRoomAvailable;
-        singleRoomPrice = timelineDateObject.singleRoomPrice;
-        doubleRoomAvailable = timelineDateObject.doubleRoomAvailable;
-        doubleRoomPrice = timelineDateObject.doubleRoomPrice;
+        singleRoomAvailable = timetableDateObject.singleRoomAvailable;
+        singleRoomPrice = timetableDateObject.singleRoomPrice;
+        doubleRoomAvailable = timetableDateObject.doubleRoomAvailable;
+        doubleRoomPrice = timetableDateObject.doubleRoomPrice;
       }
 
-      timeline.push({
-        dayName: timelineDate.format('dddd'),
-        dayNumber: timelineDate.format('YYYY-DD-MM'),
+      timetable.push({
+        dayName: timetableDate.format('dddd'),
+        dayNumber: timetableDate.format('YYYY-DD-MM'),
         singleRoomAvailable: singleRoomAvailable,
         singleRoomPrice: singleRoomPrice,
         doubleRoomAvailable: doubleRoomAvailable,
@@ -129,11 +136,11 @@ export default class PriceAndAvailibility extends Component {
       });
     }
 
-    return timeline;
+    return timetable;
   }
 
   render() {
-    const timeline = this.prepareTimeline();
+    const timetable = this.prepareTimetable();
 
     return (
       <div className="form-inline form-price-and-availibility">
@@ -167,11 +174,11 @@ export default class PriceAndAvailibility extends Component {
               glyphicon glyphicon-triangle-left"
               onClick={() => {
                 this.state.navigator.currentYear--;
-                this.state.viewTimelineRange = this.getMonthDateRange();
+                this.state.viewTimetableRange = this.getMonthDateRange();
 
                 this.setState([
                   this.state.navigator,
-                  this.state.viewTimelineRange,
+                  this.state.viewTimetableRange,
                 ]);
               }}>
             </span>
@@ -179,11 +186,11 @@ export default class PriceAndAvailibility extends Component {
               <select
                 onChange={(e) => {
                   this.state.navigator.currentMonth = e.target.value;
-                  this.state.viewTimelineRange      = this.getMonthDateRange();
+                  this.state.viewTimetableRange      = this.getMonthDateRange();
 
                   this.setState([
                     this.state.navigator,
-                    this.state.viewTimelineRange,
+                    this.state.viewTimetableRange,
                   ]);
                 }}
                 value={this.state.navigator.currentMonth}>
@@ -216,11 +223,11 @@ export default class PriceAndAvailibility extends Component {
               glyphicon glyphicon-triangle-right"
               onClick={() => {
                 this.state.navigator.currentYear++;
-                this.state.viewTimelineRange = this.getMonthDateRange();
+                this.state.viewTimetableRange = this.getMonthDateRange();
 
                 this.setState([
                   this.state.navigator,
-                  this.state.viewTimelineRange,
+                  this.state.viewTimetableRange,
                 ]);
               }}></span>
           </div>
@@ -241,7 +248,7 @@ export default class PriceAndAvailibility extends Component {
           <div className="time-table-wrapper">
             <div className="time-table">
               {
-                timeline.map((obj, i) => {
+                timetable.map((obj, i) => {
                   return (
                     <TimeTableEntity
                       key={i}
@@ -260,6 +267,7 @@ export default class PriceAndAvailibility extends Component {
         </div>
         <div className="clearfix"></div>
         <Waiting show={this.state.waiting} />
+        <NotificationSystem ref="notificationSystem" />
       </div>
     );
   }
