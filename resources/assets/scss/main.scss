@@ -185,6 +185,7 @@ body {
         float: left;
         width: 120px;
         text-align: center;
+        position: relative;
 
         a {
           padding: 0 10px;
@@ -230,6 +231,39 @@ body {
         .row-price {
           a {
             padding: 0 5px;
+          }
+        }
+
+        .time-table-update-field-container {
+          .time-table-update-field {
+            z-index: 2000;
+            position: absolute;
+            width: 240px;
+            height: 45px;
+            background-color: #fff;
+            border: 3px solid rgba(0, 0, 0, 0.3);
+            border-radius: 5px;
+            display: block;
+            margin-top: -65px;
+            margin-left: 25px;
+            text-align: left;
+
+            input {
+              margin-top: 4px;
+              margin-left: 4px;
+              border: 1px solid #7EA3AA;
+            }
+
+            button {
+              margin-left: 4px;
+              height: 30px;
+              margin-top: 4px;
+            }
+          }
+          .glyphicon-triangle-bottom {
+            color: rgba(0, 0, 0, 0.3);
+            position: relative;
+            top: -24px;
           }
         }
       }

@@ -18,10 +18,11 @@ class CreateTimetableTable extends Migration
 
             $table->increments('id')->index();
             $table->dateTimeTz('date');
-            $table->integer('single_room_available')->nullable();
-            $table->float('single_room_price')->nullable();
-            $table->integer('double_room_available')->nullable();
-            $table->float('double_room_price')->nullable();
+            $table->integer('single_room_available')->default(0);
+            $table->float('single_room_price')->default(0);
+            $table->integer('double_room_available')->default(0);
+            $table->float('double_room_price')->default(0);
+            $table->timestamps();
         });
     }
 

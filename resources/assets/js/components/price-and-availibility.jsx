@@ -78,7 +78,7 @@ export default class PriceAndAvailibility extends Component {
     this.request.done((items) => {
       const viewTimetableDatas = this.state.viewTimetableDatas;
 
-      items.forEach((item) => {
+      items.data.forEach((item) => {
         viewTimetableDatas[item.date] = {
           singleRoomAvailable: item.singleRoomAvailable,
           singleRoomPrice: item.singleRoomPrice,
@@ -101,6 +101,23 @@ export default class PriceAndAvailibility extends Component {
         waiting: false,
       });
     });
+  }
+
+  onFieldSuccessUpdate(date, oldValue, newValue) {
+    this.sendRequest();
+
+    this.showNotification(
+      `Value of "${date.format('YYYY-DD-MM')}" has been updated from "${oldValue}" to "${newValue}".`,
+      'success'
+    );
+  }
+
+  onFieldFailedUpdate(date, oldValue, newValue) {
+    this.showNotification(
+      `Value of "${date.format('YYYY-DD-MM')}" has not been updated from "${oldValue}" to "${newValue}".` +
+      ' Please Try Again.',
+      'error'
+    );
   }
 
   prepareTimetable () {
@@ -127,8 +144,9 @@ export default class PriceAndAvailibility extends Component {
       }
 
       timetable.push({
+        date: timetableDate,
         dayName: timetableDate.format('dddd'),
-        dayNumber: timetableDate.format('YYYY-DD-MM'),
+        dayNumber: timetableDate.format('D'),
         singleRoomAvailable: singleRoomAvailable,
         singleRoomPrice: singleRoomPrice,
         doubleRoomAvailable: doubleRoomAvailable,
@@ -180,6 +198,8 @@ export default class PriceAndAvailibility extends Component {
                   this.state.navigator,
                   this.state.viewTimetableRange,
                 ]);
+
+                this.sendRequest();
               }}>
             </span>
             <div className="date-picker-month-navigator-dropdown">
@@ -192,6 +212,8 @@ export default class PriceAndAvailibility extends Component {
                     this.state.navigator,
                     this.state.viewTimetableRange,
                   ]);
+
+                  this.sendRequest();
                 }}
                 value={this.state.navigator.currentMonth}>
                 selected={this.state.navigator.currentMonth}>
@@ -229,6 +251,8 @@ export default class PriceAndAvailibility extends Component {
                   this.state.navigator,
                   this.state.viewTimetableRange,
                 ]);
+
+                this.sendRequest();
               }}></span>
           </div>
           <div className="scroll scroll-left">
@@ -252,12 +276,15 @@ export default class PriceAndAvailibility extends Component {
                   return (
                     <TimeTableEntity
                       key={i}
+                      date={obj.date}
                       dayName={obj.dayName}
                       dayNumber={obj.dayNumber}
                       singleRoomAvailable={obj.singleRoomAvailable}
                       singleRoomPrice={obj.singleRoomPrice}
                       doubleRoomAvailable={obj.doubleRoomAvailable}
                       doubleRoomPrice={obj.doubleRoomPrice}
+                      onSuccessUpdate={this.onFieldSuccessUpdate.bind(this)}
+                      onFailedUpdate={this.onFieldFailedUpdate.bind(this)}
                       />
                   );
                 })

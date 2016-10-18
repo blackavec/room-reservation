@@ -4,12 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Repositories\TimeTableRepository;
 use App\Transformers\TimetableTransformer;
-use Carbon\Carbon;
+use League\Fractal\Resource\Collection;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests;
+use Carbon\Carbon;
 
-class TimetableController extends Controller
+class TimetableController extends BaseController
 {
     /**
      * @var TimeTableRepository
@@ -34,14 +35,34 @@ class TimetableController extends Controller
 
         $dateRange = $request->only(['start', 'end']);
 
-
         $dates = $this->timetable->findByRange(
             new Carbon($dateRange['start']),
             new Carbon($dateRange['end'])
         );
 
-        dd($this->collection($dates, new TimetableTransformer()));
+        return $this->json($dates, new TimetableTransformer);
+    }
 
-        return response()->json($dates->toArray(), 200);
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function update(Request $request)
+    {
+        $this->validate($request , [
+            'date' => 'required|date',
+            'field' => 'required',
+            'value' => 'required|numeric',
+        ]);
+
+        $data = $request->only(['date', 'field', 'value']);
+
+        $this->timetable->update(
+            new Carbon($data['date']),
+            $data['field'],
+            $data['value']
+        );
+
+        return response('', 204);
     }
 }
