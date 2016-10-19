@@ -423,8 +423,18 @@ export default class Operation extends Component {
                   <span className="change-row-span">Change Availability To: </span>
                   <input
                     onChange={(e) => {
+                      let value = e.target.value;
+
+                      if (value > 5) {
+                        value = 5;
+                      }
+
+                      if (value < 0) {
+                        value = 0;
+                      }
+                      
                       this.doSetState({
-                        changeAvailibilityTo: e.target.value,
+                        changeAvailibilityTo: value,
                       });
                     }}
                     value={this.state.changeAvailibilityTo}

@@ -79,8 +79,8 @@ class TimeTableRepository
 
             if ($daysOfWeek[$dayOfWeek]) {
                 $this->updateFromArray($currentDate, [
-                    $roomType . '_room_available' => $changePriceTo,
-                    $roomType . '_room_price' => $changeAvailibilityTo,
+                    $roomType . '_room_available' => $changeAvailibilityTo,
+                    $roomType . '_room_price' => $changePriceTo,
                 ]);
             }
 

@@ -76,7 +76,7 @@ class TimetableController extends BaseController
             'dateStart' => 'required|date|before:dateEnd',
             'dateEnd' => 'required|date|after:dateStart',
             'changePriceTo' => 'required',
-            'changeAvailibilityTo' => 'required',
+            'changeAvailibilityTo' => 'required|digits_between:0,5',
             'roomType' => 'required|in:single,double',
             'daysOfWeek' => 'required',
             'daysOfWeek.monday' => 'required|boolean',
