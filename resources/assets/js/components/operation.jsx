@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
+import $ from 'jquery';
 import cookie from 'react-cookie';
 import DatePickerInput from './datepicker.jsx';
 import Waiting from './waiting.jsx';
+import NotificationSystem from 'react-notification-system';
 
 require('react-datepicker/dist/react-datepicker.css');
 const nowMoment = moment();
@@ -53,6 +55,11 @@ export default class Operation extends Component {
     };
   }
 
+  componentWillUnmount() {
+    this.request.abort();
+  }
+
+
   doSetState(states) {
     this.setState(states);
 
@@ -88,6 +95,42 @@ export default class Operation extends Component {
       isBulkOperationOpen: false,
     });
   }
+
+  showNotification(message, level) {
+    this.refs.operationNotificationSystem.addNotification({
+      message: message,
+      level: level,
+      position: 'bl', // bottom center
+    });
+  }
+
+  sendUpdateRequest() {
+    this.doSetState({
+      waiting: true,
+    });
+
+    this.request = $.ajax({
+      url: '/timetable',
+      method: 'put',
+      data: {
+      }
+    });
+
+    this.request.done((items) => {
+      this.showNotification('Dates has been updated', 'success');
+    });
+
+    this.request.fail(() => {
+      this.showNotification('Request Failed, please try again', 'error');
+    });
+
+    this.request.always(() => {
+      this.setState({
+        waiting: false,
+      });
+    });
+  }
+
 
   checkAllDays() {
     this.doSetState({
@@ -155,12 +198,6 @@ export default class Operation extends Component {
         saturday: day === 'saturday' ? !days.saturday : days.saturday,
         sunday: day === 'sunday' ? !days.sunday : days.sunday,
       }
-    });
-  }
-
-  update() {
-    this.doSetState({
-      waiting: true,
     });
   }
 
@@ -381,7 +418,7 @@ export default class Operation extends Component {
                   className="btn btn-default btn-sm">Cancel</button>
                 {' '}
                 <button
-                  onClick={this.update.bind(this)}
+                  onClick={this.sendUpdateRequest.bind(this)}
                   type="button"
                   className="btn btn-success btn-sm">Update</button>
               </th>
@@ -389,6 +426,7 @@ export default class Operation extends Component {
           </tbody>
         </table>
         <Waiting show={this.state.waiting} />
+        <NotificationSystem ref="operationNotificationSystem" />
       </form>
     );
   }
