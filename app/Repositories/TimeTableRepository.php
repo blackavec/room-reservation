@@ -45,15 +45,61 @@ class TimeTableRepository
      */
     public function update(Carbon $date, $field, $value)
     {
+        $this->updateFromArray($date, [
+            $field => $value
+        ]);
+    }
+
+    /**
+     * @param Carbon $start
+     * @param Carbon $end
+     * @param        $changePriceTo
+     * @param        $changeAvailibilityTo
+     * @param        $roomType
+     * @param        $daysOfWeek
+     */
+    public function bulkUpdate(
+        Carbon $start,
+        Carbon $end,
+        $changePriceTo,
+        $changeAvailibilityTo,
+        $roomType,
+        $daysOfWeek
+    ) {
+        $start->setTime(0, 0, 0);
+        $end->setTime(0, 0, 0);
+
+        $currentDate  = $start;
+
+        while ($currentDate <= $end) {
+            $dayOfWeek = $this->mapDayOfWeek($currentDate);
+
+            if ($daysOfWeek[$dayOfWeek]) {
+                $this->updateFromArray($currentDate, [
+                    $roomType . '_room_available' => $changePriceTo,
+                    $roomType . '_room_price' => $changeAvailibilityTo,
+                ]);
+            }
+
+            $currentDate->addDay(1);
+        }
+    }
+
+    /**
+     * @param Carbon $date
+     * @param        $fields
+     *
+     * @return null
+     */
+    protected function updateFromArray(Carbon $date, $fields)
+    {
         $date->setTime(0, 0, 0);
 
         $timetableBuilder = $this->timetable->where('date', $date);
 
         // check if date has already a reserved row in db
         if ($timetableBuilder->count() > 0) {
-            $timetableBuilder->update([
-                $field => $value
-            ]);
+            $timetableBuilder->update($fields);
 
             return;
         }
@@ -61,9 +107,32 @@ class TimeTableRepository
         // insert the field into db
         $newTimetable = $this->timetable->newInstance();
 
-        $newTimetable->date   = $date;
-        $newTimetable->$field = $value;
+        $newTimetable->date = $date;
+
+        foreach ($fields as $field => $value) {
+            $newTimetable->$field = $value;
+        }
 
         $newTimetable->save();
+    }
+
+    /**
+     * @param Carbon $date
+     *
+     * @return mixed
+     */
+    protected function mapDayOfWeek(Carbon $date)
+    {
+        $days = [
+            Carbon::SUNDAY => 'sunday',
+            Carbon::MONDAY => 'monday',
+            Carbon::TUESDAY => 'tuesday',
+            Carbon::WEDNESDAY => 'wednesday',
+            Carbon::THURSDAY => 'thursday',
+            Carbon::FRIDAY => 'friday',
+            Carbon::SATURDAY => 'saturday',
+        ];
+
+        return $days[$date->dayOfWeek];
     }
 }

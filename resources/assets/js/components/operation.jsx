@@ -56,10 +56,11 @@ export default class Operation extends Component {
   }
 
   componentWillUnmount() {
-    this.request.abort();
+    if (this.request) {
+      this.request.abort();
+    }
   }
-
-
+  
   doSetState(states) {
     this.setState(states);
 
@@ -109,15 +110,37 @@ export default class Operation extends Component {
       waiting: true,
     });
 
+    const state = this.state;
+
     this.request = $.ajax({
       url: '/timetable',
       method: 'put',
       data: {
+        changePriceTo: state.changePriceTo,
+        changeAvailibilityTo: state.changeAvailibilityTo,
+        roomType: state.roomType,
+        dateStart: state.dateFrom.format(),
+        dateEnd: state.dateTo.format(),
+        daysOfWeek: {
+          monday: state.daysOfWeek.monday ? '1' : '0',
+          tuesday: state.daysOfWeek.tuesday ? '1' : '0',
+          wednesday: state.daysOfWeek.wednesday ? '1' : '0',
+          thursday: state.daysOfWeek.thursday ? '1' : '0',
+          friday: state.daysOfWeek.friday ? '1' : '0',
+          saturday: state.daysOfWeek.saturday ? '1' : '0',
+          sunday: state.daysOfWeek.sunday ? '1' : '0',
+        },
       }
     });
 
     this.request.done((items) => {
       this.showNotification('Dates has been updated', 'success');
+
+      this.doSetState({
+        isBulkOperationOpen: false,
+      });
+
+      $('.price-and-availibility-refresh').click();
     });
 
     this.request.fail(() => {

@@ -35,7 +35,9 @@ export default class PriceAndAvailibility extends Component {
   }
 
   componentWillUnmount() {
-    this.request.abort();
+    if (this.request) {
+      this.request.abort();
+    }
   }
 
   scroll(direction) {
@@ -162,6 +164,7 @@ export default class PriceAndAvailibility extends Component {
 
     return (
       <div className="form-inline form-price-and-availibility">
+        <button className="hidden price-and-availibility-refresh" onClick={this.sendRequest.bind(this)} />
         <div className="left-panel">
           <div className="row-price-availibility">
             <span>Price and Availability</span>

@@ -14,9 +14,10 @@ export default class TimeTableEntityUpdateField extends Component {
   }
 
   componentWillUnmount() {
-    this.request.abort();
+    if (this.request) {
+      this.request.abort();
+    }
   }
-
 
   show() {
     this.setState({

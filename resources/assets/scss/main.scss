@@ -157,11 +157,12 @@ body {
 
     .scroll {
       position: absolute;
+      z-index: 1000;
+      top: 54px;
+
       span {
         cursor: pointer;
       }
-
-      top: 54px;
     }
 
     .scroll-left {
