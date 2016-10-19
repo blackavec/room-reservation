@@ -94,7 +94,45 @@ class TimetableRepositoryTest extends TestCase
      */
     public function bulk_update()
     {
-        $this->markTestIncomplete();
+        $start                = Carbon::create(2000, 1, 1, 1, 1, 1);
+        $end                  = Carbon::create(2000, 1, 2, 1, 1, 1);
+        $changePriceTo        = 5000;
+        $changeAvailibilityTo = 5;
+        $roomType             = 'single';
+
+        $daysOfWeek = [
+            'sunday' => '1',
+            'monday' => '1',
+            'tuesday' => '1',
+            'wednesday' => '1',
+            'thursday' => '1',
+            'friday' => '1',
+            'saturday' => '1',
+        ];
+
+        $timetableRepo = $this->getMockBuilder(TimeTableRepository::class)
+            ->setConstructorArgs([
+                $this->timetableModel,
+            ])
+            ->setMethods(['mapDayOfWeek', 'updateFromArray'])
+            ->getMock();
+
+        $timetableRepo->expects($this->exactly(2))
+            ->method('mapDayOfWeek')
+            ->willReturn('monday');
+
+        $timetableRepo->expects($this->exactly(2))
+            ->method('updateFromArray')
+            ->willReturn('monday');
+
+        $this->assertNull($timetableRepo->bulkUpdate(
+            $start,
+            $end,
+            $changePriceTo,
+            $changeAvailibilityTo,
+            $roomType,
+            $daysOfWeek
+        ));
     }
 
     /**
@@ -102,18 +140,134 @@ class TimetableRepositoryTest extends TestCase
      *
      * @covers ::updateFromArray
      */
-    public function update_from_array()
+    public function update_from_array_for_existed_data()
     {
-        $this->markTestIncomplete();
+        $expectDate = $date = Carbon::create(2000, 1, 1, 1, 1, 1);
+        $expectDate->setTime(0, 0, 0);
+
+        $fields = [
+            'single_room_price' => 10
+        ];
+
+        $builder = m::mock(Builder::class);
+
+        $builder->shouldReceive('count')
+            ->once()
+            ->andReturn(1);
+
+        $builder->shouldReceive('update')
+            ->once()
+            ->with($fields)
+            ->andReturn(null);
+
+        $this->timetableModel
+            ->shouldReceive('where')
+            ->once()
+            ->with('date', $expectDate)
+            ->andReturn($builder);
+
+        $this->assertNull(
+            $this->callMethod($this->timetableRepo, 'updateFromArray', [$date, $fields])
+        );
+    }
+
+    /**
+     * @test
+     *
+     * @covers ::updateFromArray
+     */
+    public function update_from_array_insert_new_row()
+    {
+        $expectDate = $date = Carbon::create(2000, 1, 1, 1, 1, 1);
+        $expectDate->setTime(0, 0, 0);
+
+        $fields = [
+            'single_room_price' => 10
+        ];
+
+        $builder = m::mock(Builder::class);
+
+        $builder->shouldReceive('count')
+            ->once()
+            ->andReturn(0);
+
+        $this->timetableModel
+            ->shouldReceive('where')
+            ->once()
+            ->with('date', $expectDate)
+            ->andReturn($builder);
+
+        $newInstanceModel = m::mock(TimeTable::class);
+
+        $newInstanceModel->shouldReceive('setAttribute')
+            ->twice()
+            ->andReturnNull();
+
+        $newInstanceModel->shouldReceive('save')
+            ->andReturnNull();
+
+        $this->timetableModel
+            ->shouldReceive('newInstance')
+            ->once()
+            ->andReturn($newInstanceModel);
+
+        $this->assertNull(
+            $this->callMethod($this->timetableRepo, 'updateFromArray', [$date, $fields])
+        );
     }
 
     /**
      * @test
      *
      * @covers ::mapDayOfWeek
+     * @dataProvider map_day_of_week_provider
      */
-    public function map_day_of_week()
+    public function map_day_of_week($input, $output)
     {
-        $this->markTestIncomplete();
+        $date = Carbon::create(2016, 10, 2, 1, 1, 1);
+
+        $date->addDay($input);
+
+        $this->assertEquals(
+            $output,
+            $this->callMethod($this->timetableRepo, 'mapDayOfWeek', [$date])
+        );
+    }
+
+    /**
+     * @return array
+     */
+    public function map_day_of_week_provider()
+    {
+        return [
+            [
+                Carbon::SUNDAY,
+                'sunday',
+            ],
+            [
+                Carbon::MONDAY,
+                'monday',
+            ],
+            [
+                Carbon::TUESDAY,
+                'tuesday',
+            ],
+            [
+                Carbon::WEDNESDAY,
+                'wednesday',
+            ],
+            [
+                Carbon::THURSDAY,
+                'thursday',
+            ],
+            [
+                Carbon::FRIDAY,
+                'friday',
+            ],
+            [
+                Carbon::SATURDAY,
+                'saturday',
+            ],
+        ];
     }
 }
