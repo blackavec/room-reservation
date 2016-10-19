@@ -1,6 +1,11 @@
 <?php
 
-abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
+namespace App\Tests;
+
+use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use ReflectionClass;
+
+abstract class TestCase extends BaseTestCase
 {
     /**
      * The base URL to use while testing the application.
@@ -21,5 +26,24 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
 
         return $app;
+    }
+
+    /**
+     * Helper function to call protected method
+     *
+     * @param $object
+     * @param string $methodName
+     * @param array[] $args
+     *
+     * @return mixed
+     */
+    protected function callMethod($object, string $methodName, array $args = [])
+    {
+        $class  = new ReflectionClass($object);
+        $method = $class->getMethod($methodName);
+
+        $method->setAccessible(true);
+
+        return $method->invokeArgs($object, $args);
     }
 }

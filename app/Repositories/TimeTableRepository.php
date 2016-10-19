@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\TimeTable;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class TimeTableRepository
 {
@@ -26,14 +27,16 @@ class TimeTableRepository
      * @param Carbon $start
      * @param Carbon $end
      *
-     * @return mixed
+     * @return Collection
      */
     public function findByRange(Carbon $start, Carbon $end)
     {
         $start->setTime(0, 0, 0);
         $end->setTime(24, 56, 56);
 
-        return $this->timetable->whereBetween('date', [$start, $end])->get();
+        return $this->timetable
+            ->whereBetween('date', [$start, $end])
+            ->get();
     }
 
     /**
