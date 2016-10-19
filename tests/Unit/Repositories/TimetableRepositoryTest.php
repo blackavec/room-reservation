@@ -28,7 +28,6 @@ class TimetableRepositoryTest extends TestCase
     public function setUp()
     {
         $this->timetableModel = m::mock(TimeTable::class);
-        
         $this->timetableRepo  = new TimeTableRepository($this->timetableModel);
     }
 
@@ -69,7 +68,23 @@ class TimetableRepositoryTest extends TestCase
      */
     public function update()
     {
-        $this->markTestIncomplete();
+        $date  = Carbon::create(2000, 1, 1, 1, 1, 1);
+        $field = 'single_room_price';
+        $value = 200;
+
+        $timetableRepo = $this->getMockBuilder(TimeTableRepository::class)
+            ->setConstructorArgs([
+                $this->timetableModel,
+            ])
+            ->setMethods(['updateFromArray'])
+            ->getMock();
+
+        $timetableRepo->expects($this->once())
+            ->method('updateFromArray')
+            ->with($date, [$field => $value])
+            ->willReturn(null);
+
+        $this->assertNull($timetableRepo->update($date, $field, $value));
     }
 
     /**
