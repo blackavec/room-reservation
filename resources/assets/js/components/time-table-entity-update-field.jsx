@@ -82,8 +82,6 @@ export default class TimeTableEntityUpdateField extends Component {
             onChange={(e) => {
               let value = e.target.value;
 
-              console.log(this.props.field);
-
               if (
                 value > 5 && (
                   this.props.field === 'single_room_available' || this.props.field === 'double_room_available'
