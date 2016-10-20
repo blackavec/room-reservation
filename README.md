@@ -1,5 +1,6 @@
 # Preview
 
+![Screenshot](screenshot.png "Screenshot")
 
 # Run
 
