@@ -3,7 +3,8 @@
   "scripts": {
     "copy-react": "cp node_modules/react/dist/react-with-addons.js public/js/react.js",
     "dev": "npm run copy-react && node_modules/.bin/webpack -d --watch",
-    "build": "npm run copy-react && node_modules/.bin/webpack -p"
+    "build": "npm run copy-react && node_modules/.bin/webpack -p",
+    "proxy": "./ngrok http 8081 -region ap"
   },
   "devDependencies": {
     "babel-core": "^6.4.5",
