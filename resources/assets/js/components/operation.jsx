@@ -24,7 +24,7 @@ export default class Operation extends Component {
         : 0,
       roomType: operationCookies ? operationCookies.roomType : 'single',
       dateFrom: operationCookies ? moment(operationCookies.dateFrom) : nowMoment,
-      dateTo: operationCookies ? moment(operationCookies.dateTo) : nowMoment,
+      dateTo: operationCookies ? moment(operationCookies.dateTo).add('1', 'day') : nowMoment,
       isBulkOperationOpen: false,
       allDays: operationCookies ? operationCookies.allDays : false,
       allWeekdays: operationCookies ? operationCookies.allWeekdays : false,
@@ -432,7 +432,7 @@ export default class Operation extends Component {
                       if (value < 0) {
                         value = 0;
                       }
-                      
+
                       this.doSetState({
                         changeAvailibilityTo: value,
                       });
