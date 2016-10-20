@@ -45,7 +45,8 @@
             "php artisan optimize"
         ],
         "docker-mysql": "docker run -d --name db-laravel-mysql -e MYSQL_DATABASE=mydb -e MYSQL_ROOT_PASSWORD=my-secret-pw -v ~/.data/mysql:/var/lib/mysql -p 33060:3306 -d mysql",
-        "docker-phpmyadmin": "docker run --name myadmin -d --link db-laravel-mysql:db -p 8080:80 phpmyadmin/phpmyadmin"
+        "docker-phpmyadmin": "docker run --name myadmin -d --link db-laravel-mysql:db -p 8080:80 phpmyadmin/phpmyadmin",
+        "proxy": "./ngrok http 8081 -region ap"
     },
     "config": {
         "preferred-install": "dist"
