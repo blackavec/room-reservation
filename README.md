@@ -23,3 +23,11 @@ npm run dev
 # production build of webpack
 npm run build
 ```
+# Test
+
+![Tests Screenshot](test-screenshot.png "Tests Screenshot")
+
+To run the test you need to install phpunit or use the phpunit in the dependency directory by command below:
+```
+vendor/bin/phpunit -v --debug
+```
