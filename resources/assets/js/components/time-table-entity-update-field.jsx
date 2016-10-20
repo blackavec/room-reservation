@@ -80,7 +80,11 @@ export default class TimeTableEntityUpdateField extends Component {
             type="number"
             className="form-control input-sm"
             onChange={(e) => {
-              const value = e.target.value;
+              let value = e.target.value;
+
+              if (value > 5) {
+                value = 5;
+              }
 
               this.setState({
                 okDisabled: parseInt(value) < 0,
