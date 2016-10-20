@@ -24,7 +24,7 @@ export default class Operation extends Component {
         : 0,
       roomType: operationCookies ? operationCookies.roomType : 'single',
       dateFrom: operationCookies ? moment(operationCookies.dateFrom) : nowMoment,
-      dateTo: operationCookies ? moment(operationCookies.dateTo).add('1', 'day') : nowMoment,
+      dateTo: operationCookies ? moment(operationCookies.dateTo) : moment().add('1', 'day'),
       isBulkOperationOpen: false,
       allDays: operationCookies ? operationCookies.allDays : false,
       allWeekdays: operationCookies ? operationCookies.allWeekdays : false,
