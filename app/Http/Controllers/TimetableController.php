@@ -99,6 +99,6 @@ class TimetableController extends BaseController
             $data['daysOfWeek']
         );
 
-        return response('', 200);
+        return response('', 204);
     }
 }
