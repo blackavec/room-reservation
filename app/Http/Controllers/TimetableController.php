@@ -75,8 +75,8 @@ class TimetableController extends BaseController
         $this->validate($request , [
             'dateStart' => 'required|date|before:dateEnd',
             'dateEnd' => 'required|date|after:dateStart',
-            'changePriceTo' => 'required',
-            'changeAvailibilityTo' => 'required|digits_between:0,5',
+            'changePriceTo' => 'present',
+            'changeAvailibilityTo' => 'present|digits_between:0,5',
             'roomType' => 'required|in:single,double',
             'daysOfWeek' => 'required',
             'daysOfWeek.monday' => 'required|boolean',
@@ -93,8 +93,8 @@ class TimetableController extends BaseController
         $this->timetable->bulkUpdate(
             new Carbon($data['dateStart']),
             new Carbon($data['dateEnd']),
-            $data['changePriceTo'],
-            $data['changeAvailibilityTo'],
+            $data['changePriceTo'] ?: null,
+            $data['changeAvailibilityTo'] ?: null,
             $data['roomType'],
             $data['daysOfWeek']
         );

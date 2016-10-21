@@ -176,6 +176,22 @@ class TimetableRepositoryTest extends TestCase
      *
      * @covers ::updateFromArray
      */
+    public function update_from_array_for_empty_fields()
+    {
+        $date = Carbon::create(2000, 1, 1, 1, 1, 1);
+
+        $fields = [];
+
+        $this->assertNull(
+            $this->callMethod($this->timetableRepo, 'updateFromArray', [$date, $fields])
+        );
+    }
+
+    /**
+     * @test
+     *
+     * @covers ::updateFromArray
+     */
     public function update_from_array_insert_new_row()
     {
         $expectDate = $date = Carbon::create(2000, 1, 1, 1, 1, 1);

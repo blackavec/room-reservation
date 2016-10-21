@@ -78,10 +78,17 @@ class TimeTableRepository
             $dayOfWeek = $this->mapDayOfWeek($currentDate);
 
             if ($daysOfWeek[$dayOfWeek]) {
-                $this->updateFromArray($currentDate, [
-                    $roomType . '_room_available' => $changeAvailibilityTo,
-                    $roomType . '_room_price' => $changePriceTo,
-                ]);
+                $updateArray = [];
+                
+                if ($changeAvailibilityTo) {
+                    $updateArray[$roomType . '_room_available'] = $changeAvailibilityTo;
+                }
+                
+                if ($changePriceTo) {
+                    $updateArray[$roomType . '_room_price'] = $changePriceTo;
+                }
+
+                $this->updateFromArray($currentDate, $updateArray);
             }
 
             $currentDate->addDay(1);
@@ -96,6 +103,10 @@ class TimeTableRepository
      */
     protected function updateFromArray(Carbon $date, $fields)
     {
+        if (!$fields) {
+            return;
+        }
+
         $date->setTime(0, 0, 0);
 
         $timetableBuilder = $this->timetable->where('date', $date);

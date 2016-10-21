@@ -18,10 +18,10 @@ export default class Operation extends Component {
 
     this.state = {
       waiting: false,
-      changePriceTo: operationCookies ? operationCookies.changePriceTo : 0,
+      changePriceTo: operationCookies ? operationCookies.changePriceTo : '',
       changeAvailibilityTo: operationCookies
         ? operationCookies.changeAvailibilityTo
-        : 0,
+        : '',
       roomType: operationCookies ? operationCookies.roomType : 'single',
       dateFrom: operationCookies ? moment(operationCookies.dateFrom) : nowMoment,
       dateTo: operationCookies ? moment(operationCookies.dateTo) : moment().add('1', 'day'),
